@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Landing | Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .app-hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 80vh;
+            padding: 2rem;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+        }
+
+        .app-content {
+            max-width: 50%;
+        }
+
+        .app-image {
+            max-width: 40%;
+            transform: rotate(-10deg);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border-radius: 30px;
+            overflow: hidden;
+        }
+
+        .app-image img {
+            width: 100%;
+            display: block;
+        }
+
+        .features {
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 2rem;
+            background: #111;
+            border-radius: 15px;
+        }
+
+        .back-link {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 50px;
+            z-index: 100;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="index.html" class="back-link">← Volver al Portafolio</a>
+
+    <section class="app-hero container">
+        <div class="app-content">
+            <h1 class="hero-title">Tu Vida, Organizada.</h1>
+            <p class="hero-subtitle">La aplicación definitiva para gestionar tus tareas y proyectos con estilo.</p>
+            <div style="display: flex; gap: 1rem;">
+                <button class="btn btn-primary" onclick="alert('Descargando para iOS...')"> App Store</button>
+                <button class="btn btn-secondary" onclick="alert('Descargando para Android...')">🤖 Google Play</button>
+            </div>
+        </div>
+        <div class="app-image">
+            <img src="app_landing.png" alt="App Screenshot">
+        </div>
+    </section>
+
+    <section class="container features">
+        <div class="feature-item">
+            <h3>⚡ Rápida</h3>
+            <p>Carga instantánea y sincronización en tiempo real.</p>
+        </div>
+        <div class="feature-item">
+            <h3>🔒 Segura</h3>
+            <p>Tus datos están encriptados de extremo a extremo.</p>
+        </div>
+        <div class="feature-item">
+            <h3>🎨 Personalizable</h3>
+            <p>Temas oscuros, claros y colores de acento.</p>
+        </div>
+    </section>
+</body>
+
+</html>

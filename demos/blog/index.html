@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechInsights | Modern Blog</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,700;1,300&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #007bff;
+            --text: #333;
+            --bg: #fff;
+            --gray: #f4f4f4;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            cursor: none;
+        }
+
+        /* Custom Cursor */
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #ff5f56;
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #ff5f56;
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+
+        header {
+            padding: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .brand {
+            font-size: 2rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: #111;
+        }
+
+        .subtitle {
+            color: #666;
+            font-style: italic;
+            font-family: 'Merriweather', serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .article-card {
+            margin-bottom: 3rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 2rem;
+            transition: 0.3s;
+        }
+
+        .article-meta {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .article-title {
+            font-size: 2rem;
+            margin: 0.5rem 0;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .article-title:hover {
+            color: var(--primary);
+        }
+
+        .article-excerpt {
+            color: #555;
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .single-post {
+            display: none;
+        }
+
+        .single-post.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: #666;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            color: var(--primary);
+        }
+
+        .post-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+        }
+
+        .post-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .comments-section {
+            margin-top: 4rem;
+            background: var(--gray);
+            padding: 2rem;
+            border-radius: 8px;
+        }
+
+        .comment-form textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            font-family: inherit;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .comment-list {
+            margin-top: 2rem;
+        }
+
+        .comment {
+            background: white;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .comment-author {
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .comment-date {
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-outline" id="cursor-outline"></div>
+
+    <header>
+        <div class="container" style="padding: 0;">
+            <a href="#" class="brand" onclick="showHome()">Tech Insights</a>
+            <div class="subtitle">Exploring the future of web development</div>
+        </div>
+    </header>
+
+    <div class="container" id="main-content">
+        <!-- Content injected via JS -->
+    </div>
+
+    <script>
+        // Custom Cursor Logic
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorOutline = document.getElementById('cursor-outline');
+
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        const posts = [
+            {
+                id: 1,
+                category: "JavaScript",
+                title: "Understanding Async/Await in 2025",
+                date: "Dec 04, 2025",
+                excerpt: "Asynchronous programming has evolved significantly. In this post, we dive deep into the latest patterns and best practices for handling promises.",
+                content: `
+                    <p>Asynchronous programming is at the heart of modern web development. With the introduction of top-level await and improved error handling in recent ECMAScript versions, writing non-blocking code has never been cleaner.</p>
+                    <p>In the past, we relied heavily on callbacks, which led to the infamous 'callback hell'. Then came Promises, which flattened our code. Now, async/await allows us to write asynchronous code that looks and behaves like synchronous code.</p>
+                    <h3>Why it matters</h3>
+                    <p>Readable code is maintainable code. By using async/await, we reduce cognitive load and make our applications more robust.</p>
+                `,
+                image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500&auto=format&fit=crop&q=60"
+            },
+            {
+                id: 2,
+                category: "CSS",
+                title: "The Power of CSS Grid & Subgrid",
+                date: "Nov 28, 2025",
+                excerpt: "Grid layout allows for two-dimensional layout systems on the web. It's time to stop using floats and start using Grid for complex layouts.",
+                content: `
+                    <p>CSS Grid Layout is the most powerful layout system available in CSS. It is a 2-dimensional system, meaning it can handle both columns and rows, unlike flexbox which is largely a 1-dimensional system.</p>
+                    <p>With the widespread adoption of Subgrid, we can now align nested content to the parent grid, opening up a new world of design possibilities.</p>
+                `,
+                image: "https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?w=500&auto=format&fit=crop&q=60"
+            },
+            {
+                id: 3,
+                category: "Career",
+                title: "From Junior to Senior Developer",
+                date: "Oct 15, 2025",
+                excerpt: "The journey of a developer is continuous learning. Here are the key soft and hard skills you need to level up your career.",
+                content: `
+                    <p>Becoming a Senior Developer isn't just about writing code faster. It's about understanding the business value of what you're building, mentoring others, and making architectural decisions.</p>
+                    <p>Focus on communication, empathy, and system design. These are the traits that distinguish a coder from an engineer.</p>
+                `,
+                image: "https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=500&auto=format&fit=crop&q=60"
+            }
+        ];
+
+        const comments = {
+            1: [
+                { author: "Jane Doe", text: "Great explanation! This cleared up a lot of confusion for me.", date: "Just now" }
+            ]
+        };
+
+        function renderHome() {
+            const container = document.getElementById('main-content');
+            container.innerHTML = '';
+
+            posts.forEach(post => {
+                const article = document.createElement('article');
+                article.className = 'article-card';
+                article.innerHTML = `
+                    <img src="${post.image}" alt="${post.title}" style="width:100%; height:250px; object-fit:cover; border-radius:8px; margin-bottom:1rem;">
+                    <div class="article-meta">${post.category} • ${post.date}</div>
+                    <h2 class="article-title" onclick="showPost(${post.id})">${post.title}</h2>
+                    <p class="article-excerpt">${post.excerpt}</p>
+                    <a class="read-more" onclick="showPost(${post.id})">Read Article &rarr;</a>
+                `;
+                container.appendChild(article);
+            });
+        }
+
+        function showPost(id) {
+            const post = posts.find(p => p.id === id);
+            const container = document.getElementById('main-content');
+
+            const postComments = comments[id] || [];
+            const commentsHTML = postComments.map(c => `
+                <div class="comment">
+                    <div class="comment-author">${c.author} <span class="comment-date">• ${c.date}</span></div>
+                    <div>${c.text}</div>
+                </div>
+            `).join('');
+
+            container.innerHTML = `
+                <div class="single-post active">
+                    <a class="back-btn" onclick="renderHome()">&larr; Back to Articles</a>
+                    <img src="${post.image}" alt="${post.title}" style="width:100%; height:300px; object-fit:cover; border-radius:8px; margin-bottom:2rem;">
+                    <div class="article-meta">${post.category} • ${post.date}</div>
+                    <h1 style="font-size: 2.5rem; margin-bottom: 2rem;">${post.title}</h1>
+                    <div class="post-content">${post.content}</div>
+                    
+                    <div class="comments-section">
+                        <h3>Discussion</h3>
+                        <form class="comment-form" onsubmit="addComment(event, ${id})">
+                            <textarea placeholder="Leave a comment..." required></textarea>
+                            <button type="submit" class="btn">Post Comment</button>
+                        </form>
+                        <div class="comment-list" id="comment-list-${id}">
+                            ${commentsHTML}
+                        </div>
+                    </div>
+                </div>
+            `;
+            window.scrollTo(0, 0);
+        }
+
+        function addComment(e, postId) {
+            e.preventDefault();
+            const textarea = e.target.querySelector('textarea');
+            const text = textarea.value;
+
+            if (!comments[postId]) comments[postId] = [];
+            comments[postId].unshift({ author: "You", text: text, date: "Just now" });
+
+            const list = document.getElementById(`comment-list-${postId}`);
+            const newComment = document.createElement('div');
+            newComment.className = 'comment';
+            newComment.innerHTML = `
+                <div class="comment-author">You <span class="comment-date">• Just now</span></div>
+                <div>${text}</div>
+            `;
+            list.prepend(newComment);
+
+            textarea.value = '';
+        }
+
+        function showHome() {
+            renderHome();
+            window.scrollTo(0, 0);
+        }
+
+        // Initial render
+        renderHome();
+    </script>
+</body>
+
+</html>

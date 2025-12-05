@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RocketSaaS | Boost Productivity</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6c63ff;
+            --secondary: #3f3d56;
+            --bg: #f9f9ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--secondary);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Custom Cursor */
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #ff5f56;
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #ff5f56;
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-links a {
+            margin-left: 2rem;
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .cta-btn {
+            background: var(--primary);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+            transition: 0.3s;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.4);
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 4rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 80vh;
+        }
+
+        .hero-text {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: #2d2d2d;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .hero-img {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .features {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .faq {
+            padding: 5rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid #ddd;
+            padding: 1rem 0;
+        }
+
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: 0.3s ease;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .accordion-content.active {
+            max-height: 200px;
+            padding-top: 1rem;
+        }
+
+        .icon-plus {
+            transition: 0.3s;
+        }
+
+        .accordion-header.active .icon-plus {
+            transform: rotate(45deg);
+        }
+
+        .newsletter {
+            background: var(--primary);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            margin-bottom: 1rem;
+        }
+
+        .form-box {
+            max-width: 500px;
+            margin: 2rem auto 0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .form-box input {
+            flex: 1;
+            padding: 15px;
+            border-radius: 30px;
+            border: none;
+            outline: none;
+        }
+
+        .form-box button {
+            padding: 15px 30px;
+            border-radius: 30px;
+            border: none;
+            background: #2d2d2d;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .form-box button:hover {
+            background: #000;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-img {
+                margin-top: 3rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .form-box {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-outline" id="cursor-outline"></div>
+
+    <nav>
+        <div class="logo"><i class="fa-solid fa-rocket"></i> RocketSaaS</div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#faq">FAQ</a>
+            <a href="#pricing">Pricing</a>
+        </div>
+        <a href="#" class="cta-btn">Get Started</a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Automate Your Workflow Instantly</h1>
+            <p>Stop wasting time on manual tasks. RocketSaaS helps you streamline your business processes with AI-driven
+                automation.</p>
+            <a href="#newsletter" class="cta-btn" style="padding: 15px 40px; font-size: 1.1rem;">Try for Free</a>
+        </div>
+        <div class="hero-img">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&auto=format&fit=crop&q=60"
+                alt="Dashboard" style="width: 100%; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <h2 class="section-title">Why Choose Us?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="icon"><i class="fa-solid fa-bolt"></i></div>
+                <h3>Lightning Fast</h3>
+                <p>Optimized for speed and performance, ensuring your team never waits.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3>Secure by Design</h3>
+                <p>Enterprise-grade security to keep your data safe and compliant.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon"><i class="fa-solid fa-chart-line"></i></div>
+                <h3>Analytics</h3>
+                <p>Deep insights into your workflow efficiency with real-time dashboards.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq" id="faq">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                Is there a free trial?
+                <i class="fa-solid fa-plus icon-plus"></i>
+            </div>
+            <div class="accordion-content">
+                Yes! We offer a 14-day free trial with full access to all features. No credit card required.
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                Can I cancel anytime?
+                <i class="fa-solid fa-plus icon-plus"></i>
+            </div>
+            <div class="accordion-content">
+                Absolutely. You can cancel your subscription at any time from your account settings.
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                Do you offer support?
+                <i class="fa-solid fa-plus icon-plus"></i>
+            </div>
+            <div class="accordion-content">
+                We provide 24/7 support via chat and email for all our customers.
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter" id="newsletter">
+        <h2>Ready to blast off?</h2>
+        <p>Join 10,000+ teams using RocketSaaS today.</p>
+        <form class="form-box" onsubmit="handleSubscribe(event)">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit">Get Started</button>
+        </form>
+    </section>
+
+    <script>
+        // Custom Cursor Logic
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorOutline = document.getElementById('cursor-outline');
+
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        function toggleAccordion(header) {
+            header.classList.toggle('active');
+            const content = header.nextElementSibling;
+            content.classList.toggle('active');
+
+            document.querySelectorAll('.accordion-header').forEach(item => {
+                if (item !== header) {
+                    item.classList.remove('active');
+                    item.nextElementSibling.classList.remove('active');
+                }
+            });
+        }
+
+        function handleSubscribe(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const originalText = btn.textContent;
+
+            btn.textContent = 'Subscribed!';
+            btn.style.background = '#4caf50';
+
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = '#2d2d2d';
+                e.target.reset();
+                alert('Thanks for subscribing! Welcome aboard.');
+            }, 2000);
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

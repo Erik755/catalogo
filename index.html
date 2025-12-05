@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>the-code</title>
+    <meta name="description" content="Portafolio de Erik Sanchez, Desarrollador Web Full-Stack Senior.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Outfit:wght@300;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-outline" id="cursor-outline"></div>
+
+    <header class="header">
+        <nav class="nav container">
+            <a href="#" class="logo">the-code</a>
+            <div class="nav-links">
+                <a href="#home" class="nav-link">Inicio</a>
+                <a href="#projects" class="nav-link">Proyectos</a>
+                <a href="#contact" class="nav-link">Contacto</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero container">
+            <div class="hero-content">
+                <span class="subtitle">Hola, soy</span>
+                <h1 class="title">Erik Sanchez</h1>
+                <h2 class="role">Senior Full-Stack Developer <span class="accent">&</span> QA Expert</h2>
+                <p class="description">Construyendo experiencias digitales excepcionales con código limpio y diseños
+                    impactantes.</p>
+                <div class="hero-btns">
+                    <a href="#projects" class="btn btn-primary">Ver Proyectos</a>
+                    <a href="#contact" class="btn btn-outline">Contactar</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <!-- Abstract geometric shape or code snippet visualization could go here -->
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <pre><code><span class="keyword">const</span> <span class="variable">developer</span> = {
+  <span class="property">name</span>: <span class="string">'Erik Sanchez'</span>,
+  <span class="property">skills</span>: [<span class="string">'Full-Stack'</span>, <span class="string">'QA'</span>, <span class="string">'Design'</span>],
+  <span class="property">hardWorker</span>: <span class="boolean">true</span>
+};</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="projects container">
+            <h2 class="section-title">Proyectos Destacados</h2>
+            <div class="projects-grid">
+                <!-- Project 1: E-commerce -->
+                <article class="project-card" data-project="ecommerce">
+                    <div class="card-content">
+                        <div class="card-icon"><i class="fa-solid fa-shop"></i></div>
+                        <h3>E-commerce Platform</h3>
+                        <p>Plataforma de compras completa con carrito, pagos y panel de administración.</p>
+                        <button class="btn-text open-modal">Ver Demo <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </article>
+
+                <!-- Project 2: Blog -->
+                <article class="project-card" data-project="blog">
+                    <div class="card-content">
+                        <div class="card-icon"><i class="fa-solid fa-pen-nib"></i></div>
+                        <h3>Tech Blog</h3>
+                        <p>Blog minimalista con CMS integrado, categorías y sistema de comentarios.</p>
+                        <button class="btn-text open-modal">Ver Demo <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </article>
+
+                <!-- Project 3: Landing Page -->
+                <article class="project-card" data-project="landing">
+                    <div class="card-content">
+                        <div class="card-icon"><i class="fa-solid fa-rocket"></i></div>
+                        <h3>SaaS Landing Page</h3>
+                        <p>Página de aterrizaje de alta conversión con animaciones y secciones dinámicas.</p>
+                        <button class="btn-text open-modal">Ver Demo <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="contact" class="contact container">
+            <h2 class="section-title">Hablemos</h2>
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <p>¿Tienes un proyecto en mente? Estoy listo para ayudarte a hacerlo realidad.</p>
+                    <a href="mailto:sanchezerik836@gmail.com" class="email-link">
+                        <i class="fa-regular fa-envelope"></i> sanchezerik836@gmail.com
+                    </a>
+                    <div class="social-links">
+                        <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                    </div>
+                </div>
+                <form class="contact-form" id="contact-form" onsubmit="handleContactForm(event)">
+                    <div class="form-group">
+                        <input type="text" id="name" required placeholder=" ">
+                        <label for="name">Nombre</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" required placeholder=" ">
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" rows="4" required placeholder=" "></textarea>
+                        <label for="message">Mensaje</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Erik Sanchez. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Modal Container -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Cerrar">&times;</button>
+            <div class="modal-body" id="modal-body">
+                <!-- Dynamic Content will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
