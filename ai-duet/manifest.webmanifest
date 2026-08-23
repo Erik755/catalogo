@@ -1,0 +1,20 @@
+{
+  "name": "AI Duet Text Free",
+  "short_name": "AI Duet",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f7f7f8",
+  "theme_color": "#f7f7f8",
+  "description": "Puente local de texto para conversar entre ChatGPT y Gemini sin API de pago.",
+  "icons": [],
+  "share_target": {
+    "action": "./?share=1",
+    "method": "GET",
+    "enctype": "application/x-www-form-urlencoded",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}
