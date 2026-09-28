@@ -1,5 +1,8 @@
 import crypto from "node:crypto";
 
+const MIN_MXN = 10;
+const MAX_MXN = 500000;
+
 export default async function handler(request, response) {
   if (request.method !== "POST") {
     response.setHeader("Allow", "POST");
@@ -7,21 +10,30 @@ export default async function handler(request, response) {
   }
 
   const secretKey = process.env.STRIPE_SECRET_KEY;
-  const priceId = process.env.STRIPE_PRICE_ID;
   const siteUrl = (process.env.SITE_URL || "https://extreme-solutions-eosin.vercel.app").replace(/\/$/, "");
 
-  if (!secretKey || !priceId) {
+  if (!secretKey) {
     return response.status(500).json({ error: "Stripe is not configured" });
   }
 
+  const amountMxn = Number(request.body?.amountMxn);
+  if (!Number.isFinite(amountMxn) || amountMxn < MIN_MXN || amountMxn > MAX_MXN) {
+    return response.status(400).json({ error: "Invalid amount" });
+  }
+
+  const amountCentavos = Math.round(amountMxn * 100);
+
   const form = new URLSearchParams();
   form.set("mode", "payment");
-  form.set("line_items[0][price]", priceId);
+  form.set("line_items[0][price_data][currency]", "mxn");
+  form.set("line_items[0][price_data][unit_amount]", String(amountCentavos));
+  form.set("line_items[0][price_data][product_data][name]", "Servicios digitales Extreme Solutions");
   form.set("line_items[0][quantity]", "1");
   form.set("success_url", siteUrl + "/?payment=success&session_id={CHECKOUT_SESSION_ID}");
   form.set("cancel_url", siteUrl + "/?payment=cancelled");
   form.set("billing_address_collection", "auto");
   form.set("customer_creation", "always");
+  form.set("metadata[source]", "extreme-solutions-web");
 
   try {
     const stripeResponse = await fetch("https://api.stripe.com/v1/checkout/sessions", {
