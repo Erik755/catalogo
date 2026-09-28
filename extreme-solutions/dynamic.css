@@ -1,0 +1,40 @@
+/* Progressive enhancement: content remains available without JavaScript. */
+[hidden] { display: none !important; }
+html { scroll-padding-top: 100px; }
+:focus-visible { outline: 3px solid #2563eb; outline-offset: 5px; }
+.nav :focus-visible, .hero :focus-visible, .stripe-payment-card :focus-visible { outline-color: #67e8f9; }
+.skip-link { position: fixed; top: 8px; left: 8px; z-index: 50; padding: 12px 18px; background: white; color: #0b1220; transform: translateY(-160%); }
+.skip-link:focus { transform: none; }
+.nav { position: fixed; z-index: 20; transition: background .25s, box-shadow .25s; }
+.nav.is-scrolled { background: #0b1220; box-shadow: 0 4px 20px #0002; }
+.nav-links a { min-height: 44px; display: inline-flex; align-items: center; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; }
+.nav-links a:hover, .nav-links a[aria-current] { color: #67e8f9; border-color: currentColor; }
+.menu-toggle { display: none; min-height: 44px; padding: 8px 14px; color: white; border: 1px solid #ffffff66; border-radius: 6px; background: transparent; font: inherit; cursor: pointer; }
+.btn, .project-video { transition: transform .2s, background .2s, box-shadow .2s; }
+.capability, .tool-card, .project { transition: transform .25s, box-shadow .25s; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 24px #0002; }
+  .capability:hover, .tool-card:hover, .project:hover { transform: translateY(-4px); box-shadow: 0 12px 28px #0b122014; }
+}
+.project-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.filter-button { padding: 10px 18px; min-height: 44px; border: 1px solid var(--line); border-radius: 999px; background: white; color: var(--ink); font: inherit; cursor: pointer; }
+.filter-button[aria-pressed="true"] { background: var(--ink); color: white; }
+.filter-count { color: var(--muted); margin-bottom: 24px; }
+.stripe-payment-card { color: #f8fafc; background: #0b1220; }
+.stripe-payment-note { opacity: 1; color: #cbd5e1; }
+.stripe-amount-input::placeholder { color: #aebacd; }
+.section .eyebrow { color: #176379; }
+.closing .eyebrow, .proof-band .eyebrow { color: #67e8f9; }
+@media (max-width: 680px) {
+  .nav-inner { position: relative; }
+  .menu-toggle:not([hidden]) { display: block; }
+  .nav-links { display: flex; flex-wrap: wrap; gap: 4px 16px; }
+  .nav-inner { flex-wrap: wrap; }
+  .nav-links.is-enhanced { position: absolute; top: 100%; left: -14px; right: -14px; padding: 16px 24px; background: #0b1220; border-top: 1px solid #ffffff33; box-shadow: 0 12px 20px #0002; }
+  .nav-links.is-enhanced a { width: 100%; }
+  .stripe-payment-card { padding: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
