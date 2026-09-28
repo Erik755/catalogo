@@ -1,6 +1,6 @@
-const crypto = require("node:crypto");
+import crypto from "node:crypto";
 
-module.exports = async function handler(request, response) {
+export default async function handler(request, response) {
   if (request.method !== "POST") {
     response.setHeader("Allow", "POST");
     return response.status(405).json({ error: "Method not allowed" });
@@ -50,4 +50,4 @@ module.exports = async function handler(request, response) {
     console.error("Checkout endpoint error", error);
     return response.status(500).json({ error: "Unexpected checkout error" });
   }
-};
+}
