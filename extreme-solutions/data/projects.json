@@ -1,0 +1,164 @@
+[
+  {
+    "id": "reporte-servicio-pro",
+    "category": "android",
+    "title": "Reporte Servicio Pro",
+    "type": "Producto Android",
+    "description": "Desarrollamos captura de servicios, clientes, evidencias, firmas, historial y documentos PDF/Excel desde el celular.",
+    "image": "/assets/embedded-6.webp",
+    "alt": "Captura de Reporte Servicio Pro en Android",
+    "tags": [
+      "Android",
+      "PDF",
+      "Excel",
+      "Firmas"
+    ],
+    "links": [
+      {
+        "url": "https://youtu.be/Jkbw1u1hXkk?si=lP8OdGsO1P8lORdo",
+        "label": "Ver demostración →"
+      }
+    ],
+    "featured": false
+  },
+  {
+    "id": "control-gastos-pro",
+    "category": "android",
+    "title": "Control de Gastos Pro",
+    "type": "Producto Android",
+    "description": "Diseñamos una app para organizar gastos personales y empresariales por periodo, registrar movimientos desde los ajustes rápidos y conservar un historial privado en el teléfono.",
+    "image": "/assets/control-gastos-pro-dashboard.png",
+    "alt": "Panel de Control de Gastos Pro con periodo y sincronización con Google Sheets",
+    "tags": [
+      "Control financiero",
+      "Acceso rápido",
+      "Google Sheets"
+    ],
+    "links": [
+      {
+        "url": "https://youtube.com/shorts/LhCto322nwA",
+        "label": "Ver demostración →"
+      }
+    ],
+    "featured": false
+  },
+  {
+    "id": "lentes",
+    "category": "android",
+    "title": "Lentes: cámara por carpetas",
+    "type": "Producto Android · Google Play",
+    "description": "Convertimos la cámara nativa en un flujo organizado por contexto: cada lente separa fotos y videos en su propia carpeta y puede respaldarlos en un álbum equivalente de Google Fotos.",
+    "image": "/assets/lentes-feature.png",
+    "alt": "Lentes, aplicación Android para organizar fotos y videos por carpetas",
+    "tags": [
+      "Kotlin",
+      "Android",
+      "Google Fotos",
+      "Play Billing"
+    ],
+    "links": [
+      {
+        "url": "https://youtube.com/shorts/fLg5ZMEZ3Ec?si=cgFs3IToKWBHwk-K",
+        "label": "Ver demostración →"
+      }
+    ],
+    "featured": false
+  },
+  {
+    "id": "museum-of-you",
+    "category": "web",
+    "title": "The Museum of You",
+    "type": "PWA · Experiencia creativa con IA",
+    "description": "Diseñamos una experiencia instalable que convierte objetos cotidianos en piezas de museo: fotografía, curaduría generada con IA, colección local y recursos listos para compartir.",
+    "image": "/assets/museum-of-you.png",
+    "alt": "Interfaz de The Museum of You para convertir objetos cotidianos en piezas de museo con IA",
+    "tags": [
+      "PWA",
+      "IA multimodal",
+      "Privacidad local",
+      "Cloudflare"
+    ],
+    "links": [
+      {
+        "url": "https://museum-of-you.pages.dev/",
+        "label": "Abrir experiencia →"
+      },
+      {
+        "url": "https://vt.tiktok.com/ZSq3BYC7f/",
+        "label": "Ver video →"
+      }
+    ],
+    "featured": false
+  },
+  {
+    "id": "evidencia-visual",
+    "category": "tools",
+    "title": "Edición de fotos y firmas",
+    "type": "UX de evidencia",
+    "description": "Construimos herramientas para explicar problemas visualmente con flechas, texto, trazos, sellos y firmas de técnico o cliente.",
+    "image": "/assets/embedded-7.webp",
+    "alt": "Editor de fotos con evidencia anotada",
+    "tags": [
+      "Fotos",
+      "Anotación",
+      "Firma"
+    ],
+    "links": [],
+    "featured": false
+  },
+  {
+    "id": "formatos-pdf-excel",
+    "category": "tools",
+    "title": "Formatos PDF y Excel",
+    "type": "Documentos técnicos",
+    "description": "Convertimos datos de campo en documentos editables y presentables para reducir reprocesos después de un servicio.",
+    "image": "/assets/embedded-8.webp",
+    "alt": "Reporte Excel generado desde app Android",
+    "tags": [
+      "Plantillas",
+      "Historial",
+      "Entrega"
+    ],
+    "links": [],
+    "featured": false
+  },
+  {
+    "id": "asistentes-ia",
+    "category": "tools",
+    "title": "TalkTrend, CinematicApp y asistentes",
+    "type": "IA y flujos inteligentes",
+    "description": "Integramos generación de video, publicación, agentes, voz, análisis de pantalla y flujos inteligentes para tareas creativas y operativas.",
+    "image": "/assets/embedded-9.webp",
+    "alt": "Representación visual de automatización, Android e IA",
+    "tags": [
+      "IA",
+      "Video",
+      "Agentes"
+    ],
+    "links": [],
+    "featured": false
+  },
+  {
+    "id": "ltv-maestro",
+    "category": "web",
+    "title": "LTV Maestro · La Tercera Vuelta",
+    "type": "Plataforma web operativa",
+    "description": "Desarrollamos una plataforma para la operación diaria que reúne ventas, órdenes activas, inventario por peso, recetas y costeo, cortes de caja y reportes para una toma de decisiones más clara.",
+    "image": "https://ltv-maestro.vercel.app/logo.png",
+    "alt": "Logotipo de La Tercera Vuelta, plataforma LTV Maestro",
+    "tags": [
+      "React + Vite",
+      "Tailwind CSS",
+      "Base44",
+      "Vercel",
+      "Operación y reportes"
+    ],
+    "links": [
+      {
+        "url": "https://ltv-maestro.vercel.app/",
+        "label": "Ver plataforma →"
+      }
+    ],
+    "featured": true
+  }
+]

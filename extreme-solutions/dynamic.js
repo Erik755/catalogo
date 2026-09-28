@@ -71,23 +71,3 @@ if ('IntersectionObserver' in window) {
     if (reduced.matches) document.getAnimations().forEach(animation => animation.cancel());
   });
 }
-
-const filters = document.querySelector('.project-filters');
-const projects = [...document.querySelectorAll('.project')];
-const count = document.querySelector('.filter-count');
-filters.hidden = false;
-count.hidden = false;
-function filterProjects(category) {
-  let visible = 0;
-  projects.forEach(project => {
-    project.hidden = category !== 'all' && project.dataset.category !== category;
-    if (!project.hidden) visible++;
-  });
-  filters.querySelectorAll('button').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.filter === category)));
-  count.textContent = `${visible} proyectos disponibles`;
-}
-filters.addEventListener('click', event => {
-  const button = event.target.closest('button[data-filter]');
-  if (button) filterProjects(button.dataset.filter);
-});
-filterProjects('all');
