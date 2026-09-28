@@ -1,4 +1,4 @@
-const crypto = require("node:crypto");
+import crypto from "node:crypto";
 
 async function readRawBody(request) {
   const chunks = [];
@@ -39,7 +39,7 @@ function verifyStripeSignature(rawBody, signatureHeader, secret, toleranceSecond
   return Number.isFinite(age) && age <= toleranceSeconds;
 }
 
-module.exports = async function handler(request, response) {
+export default async function handler(request, response) {
   if (request.method !== "POST") {
     response.setHeader("Allow", "POST");
     return response.status(405).end();
@@ -85,9 +85,9 @@ module.exports = async function handler(request, response) {
   }
 
   return response.status(200).json({ received: true });
-};
+}
 
-module.exports.config = {
+export const config = {
   api: {
     bodyParser: false
   }
