@@ -5,8 +5,10 @@ Repositorio: https://github.com/Erik755/extreme-solutions
 En el proyecto existente `extreme-solutions` de Vercel:
 
 1. Settings → Git: conectar `Erik755/extreme-solutions`.
-2. Root Directory: `extreme-solutions` (el repositorio conserva otros proyectos).
-3. Framework Preset: **Other**. Build Command: **npm run build**; Output Directory: **.**.
+2. Root Directory: la raíz del repositorio. `vercel.json` publica automáticamente
+   la carpeta `extreme-solutions` y expone sus funciones mediante `api/`.
+3. Framework Preset: **Other**. Build Command y Output Directory se leen de
+   `vercel.json`; no es necesario configurarlos manualmente.
 4. Variables de entorno: `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` y `SITE_URL`.
    `SITE_URL` debe ser `https://extreme-solutions-eosin.vercel.app` para producción.
    Usar claves de TEST hasta verificar Checkout y webhook. No poner claves en GitHub.

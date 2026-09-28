@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build",
+  "outputDirectory": "extreme-solutions",
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/proyecto/:slug",
+      "destination": "/api/project?slug=:slug"
+    }
+  ]
+}

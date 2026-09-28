@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node extreme-solutions/scripts/build.mjs",
+    "test": "node --test extreme-solutions/tests/*.test.mjs"
+  }
+}
