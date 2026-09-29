@@ -7,7 +7,8 @@
   const count = document.querySelector('.filter-count');
   const empty = document.querySelector('.catalog-empty');
   const normalize = value => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-  const searchable = new Map(cards.map(card => [card, normalize(card.querySelector('.project-body').textContent)]));
+  const t = value => window.extremeI18n?.t(value) || value;
+  let searchable = new Map(cards.map(card => [card, normalize(card.querySelector('.project-body').textContent)]));
   let saved = new Set();
   try {
     const value = JSON.parse(localStorage.getItem('extreme-saved') || '[]');
@@ -27,12 +28,14 @@
       const button = card.querySelector('[data-save]');
       button.hidden = false;
       button.setAttribute('aria-pressed', String(favorite));
-      button.textContent = favorite ? 'Guardado' : 'Guardar';
-      button.setAttribute('aria-label', `${favorite ? 'Quitar de favoritos' : 'Guardar'} ${card.querySelector('h3').textContent}`);
+      button.textContent = t(favorite ? 'Guardado' : 'Guardar');
+      button.setAttribute('aria-label', `${t(favorite ? 'Quitar de favoritos' : 'Guardar')} ${card.querySelector('h3').textContent}`);
     });
     filters.querySelectorAll('button').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.filter === category)));
     savedOnly.setAttribute('aria-pressed', String(onlySaved));
-    count.textContent = `${visible} de ${cards.length} proyectos${onlySaved ? ' · favoritos' : ''}`;
+    count.textContent = window.extremeI18n?.language === 'en'
+      ? `${visible} of ${cards.length} projects${onlySaved ? ' · favorites' : ''}`
+      : `${visible} de ${cards.length} proyectos${onlySaved ? ' · favoritos' : ''}`;
     empty.hidden = visible !== 0;
     if (updateUrl) {
       const url = new URL(location.href);
@@ -62,5 +65,9 @@
   document.querySelector('.catalog-controls').hidden = false;
   filters.hidden = false;
   count.hidden = false;
+  window.addEventListener('extreme:languagechange', () => {
+    searchable = new Map(cards.map(card => [card, normalize(card.querySelector('.project-body').textContent)]));
+    render(false);
+  });
   render(false);
 })();

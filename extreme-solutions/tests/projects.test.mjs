@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { projects, card, projectPage } from '../lib/projects.js';
+import { projects, card, projectPage, translate } from '../lib/projects.js';
 import handler from '../api/project.js';
 
 test('all catalog projects have server-rendered details and escaped content', () => {
@@ -12,9 +12,22 @@ test('all catalog projects have server-rendered details and escaped content', ()
   assert.ok(!projectPage(malicious).includes('<script>alert(1)</script>'));
 });
 
-function request(method, slug) {
+test('project details are fully available in English', () => {
+  for (const project of projects) {
+    const html = projectPage(project, 'en');
+    assert.ok(html.includes('<html lang="en">'));
+    assert.ok(html.includes(translate(project.title, 'en')));
+    assert.ok(html.includes(translate(project.description, 'en')));
+    assert.ok(html.includes('Technologies and capabilities'));
+    assert.ok(html.includes('/?lang=en#experiencia'));
+    assert.ok(!html.includes('Tecnologías y capacidades'));
+  }
+  assert.ok(projectPage(undefined, 'en').includes('Project not found'));
+});
+
+function request(method, slug, lang) {
   const result = { headers: {} };
-  handler({ method, query: { slug } }, {
+  handler({ method, query: { slug, lang } }, {
     setHeader: (key, value) => { result.headers[key] = value; },
     status(code) { result.status = code; return this; },
     end(body) { result.body = body; }
@@ -27,4 +40,5 @@ test('project endpoint: 200, 404, HEAD, and unsupported method', () => {
   assert.equal(request('GET', 'missing').status, 404);
   assert.equal(request('HEAD', projects[0].id).body, undefined);
   assert.equal(request('POST', projects[0].id).status, 405);
+  assert.ok(request('GET', projects[0].id, 'en').body.includes('<html lang="en">'));
 });

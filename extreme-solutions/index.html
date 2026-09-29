@@ -13,6 +13,8 @@
   <link rel="icon" type="image/png" href="assets/embedded-1.png">
   <link rel="stylesheet" href="/base.css">
   <link rel="stylesheet" href="dynamic.css">
+  <script src="/i18n-data.js"></script>
+  <script src="/i18n.js"></script>
   <script src="/preferences.js"></script>
   <script src="dynamic.js" defer></script>
   <script src="/catalog.js" defer></script>
@@ -31,6 +33,7 @@
         <a href="#experiencia">Experiencia</a>
         <a href="#google-play">Marca</a>
         <a href="#pagos">Pagos</a>
+        <button class="language-toggle" type="button" hidden>Cambiar idioma</button>
         <button class="theme-toggle" type="button" hidden>Cambiar tema</button>
       </div>
     </div>
@@ -374,10 +377,11 @@
     const amountInput = document.getElementById('stripeAmount');
     const status = document.getElementById('stripePaymentStatus');
     const params = new URLSearchParams(window.location.search);
+    const t = message => window.extremeI18n?.t(message) || message;
 
     const showStatus = (message) => {
       if (!status) return;
-      status.textContent = message;
+      status.textContent = t(message);
       status.classList.add('is-visible');
     };
 
@@ -398,7 +402,7 @@
 
       button.disabled = true;
       const original = button.textContent;
-      button.textContent = 'Abriendo Stripe…';
+      button.textContent = t('Abriendo Stripe…');
 
       try {
         const response = await fetch('/api/create-checkout-session', {

@@ -3,6 +3,7 @@ const menu = document.querySelector('.nav-links');
 const toggle = document.querySelector('.menu-toggle');
 const mobile = matchMedia('(max-width: 680px)');
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+const t = value => window.extremeI18n?.t(value) || value;
 const links = [...menu.querySelectorAll('a')];
 menu.classList.add('is-enhanced');
 toggle.hidden = false;
@@ -10,14 +11,14 @@ toggle.hidden = false;
 function closeMenu(returnFocus = false) {
   menu.hidden = mobile.matches;
   toggle.setAttribute('aria-expanded', 'false');
-  toggle.textContent = 'Menú';
+  toggle.textContent = t('Menú');
   if (returnFocus) toggle.focus();
 }
 toggle.addEventListener('click', () => {
   const open = toggle.getAttribute('aria-expanded') !== 'true';
   menu.hidden = !open;
   toggle.setAttribute('aria-expanded', String(open));
-  toggle.textContent = open ? 'Cerrar' : 'Menú';
+  toggle.textContent = t(open ? 'Cerrar' : 'Menú');
 });
 mobile.addEventListener('change', () => closeMenu());
 document.addEventListener('keydown', event => {
@@ -33,6 +34,9 @@ links.forEach(link => link.addEventListener('click', () => {
   section.focus({ preventScroll: true });
 }));
 closeMenu();
+window.addEventListener('extreme:languagechange', () => {
+  toggle.textContent = t(toggle.getAttribute('aria-expanded') === 'true' ? 'Cerrar' : 'Menú');
+});
 
 const sections = links.map(link => document.querySelector(link.hash));
 let scheduled = false;

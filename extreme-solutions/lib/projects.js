@@ -1,7 +1,12 @@
 import { readFileSync } from 'node:fs';
 
 export const projects = JSON.parse(readFileSync(new URL('../data/projects.json', import.meta.url), 'utf8'));
+export const translations = JSON.parse(readFileSync(new URL('../data/translations.json', import.meta.url), 'utf8'));
+const reverseTranslations = Object.fromEntries(Object.entries(translations).map(([spanish, english]) => [english, spanish]));
 export const escape = value => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+export const translate = (value, language = 'es') => language === 'en'
+  ? (translations[value] || value)
+  : (reverseTranslations[value] || value);
 
 const ids = new Set();
 for (const project of projects) {
@@ -23,18 +28,21 @@ export function card(project) {
     <button class="save-project" type="button" data-save="${project.id}" aria-pressed="false" aria-label="Guardar ${escape(project.title)}" hidden>Guardar</button></div></div></article>`;
 }
 
-export function projectPage(project) {
-  const title = project ? project.title : 'Proyecto no encontrado';
-  return `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>${escape(title)} | Extreme Solutions</title><meta name="description" content="${escape(project?.description || 'Consulta los proyectos de Extreme Solutions.')}">
+export function projectPage(project, requestedLanguage = 'es') {
+  const language = requestedLanguage === 'en' ? 'en' : 'es';
+  const tr = value => translate(value, language);
+  const title = tr(project ? project.title : 'Proyecto no encontrado');
+  const languageQuery = language === 'en' ? '?lang=en' : '';
+  return `<!doctype html><html lang="${language}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>${escape(title)} | Extreme Solutions</title><meta name="description" content="${escape(tr(project?.description || 'Consulta los proyectos de Extreme Solutions.'))}">
     ${project ? '' : '<meta name="robots" content="noindex">'}
-    <link rel="stylesheet" href="/base.css"><link rel="stylesheet" href="/dynamic.css"><script src="/preferences.js"></script></head>
-    <body><a class="skip-link" href="#contenido">Saltar al contenido</a>
-    <nav class="nav is-scrolled" aria-label="Principal"><div class="nav-inner"><a class="brand" href="/"><span>Extreme Solutions</span></a><button class="theme-toggle" type="button" hidden>Cambiar tema</button></div></nav>
-    <main class="detail-page shell" id="contenido"><a href="/#experiencia">← Todos los proyectos</a>
-    <div class="detail-heading"><p class="eyebrow">${escape(project?.type || 'Error 404')}</p><h1>${escape(title)}</h1></div>
-    ${project ? `<div class="detail-layout"><div><p class="lead">${escape(project.description)}</p><h2>Tecnologías y capacidades</h2><div class="chips">${project.tags.map(tag => `<span class="chip">${escape(tag)}</span>`).join('')}</div>
-    <div class="detail-actions">${project.links.map(link => `<a class="btn dark" href="${escape(link.url)}" target="_blank" rel="noreferrer">${escape(link.label)}</a>`).join('')}<a class="btn light" href="/#pagos">Pagar un servicio acordado</a></div></div>
-    <img class="detail-image" src="${escape(project.image)}" alt="${escape(project.alt)}"></div>` : '<p>Este proyecto no existe. Vuelve al catálogo para explorar las soluciones disponibles.</p>'}
+    <link rel="stylesheet" href="/base.css"><link rel="stylesheet" href="/dynamic.css"><script src="/i18n-data.js"></script><script src="/i18n.js"></script><script src="/preferences.js"></script></head>
+    <body><a class="skip-link" href="#contenido">${escape(tr('Saltar al contenido'))}</a>
+    <nav class="nav is-scrolled" aria-label="${escape(tr('Principal'))}"><div class="nav-inner"><a class="brand" href="/${languageQuery}"><span>Extreme Solutions</span></a><div class="detail-preferences"><button class="language-toggle" type="button" hidden>${escape(tr('Cambiar idioma'))}</button><button class="theme-toggle" type="button" hidden>${escape(tr('Cambiar tema'))}</button></div></div></nav>
+    <main class="detail-page shell" id="contenido"><a href="/${languageQuery}#experiencia">${escape(tr('← Todos los proyectos'))}</a>
+    <div class="detail-heading"><p class="eyebrow">${escape(tr(project?.type || 'Error 404'))}</p><h1>${escape(title)}</h1></div>
+    ${project ? `<div class="detail-layout"><div><p class="lead">${escape(tr(project.description))}</p><h2>${escape(tr('Tecnologías y capacidades'))}</h2><div class="chips">${project.tags.map(tag => `<span class="chip">${escape(tr(tag))}</span>`).join('')}</div>
+    <div class="detail-actions">${project.links.map(link => `<a class="btn dark" href="${escape(link.url)}" target="_blank" rel="noreferrer">${escape(tr(link.label))}</a>`).join('')}<a class="btn light" href="/${languageQuery}#pagos">${escape(tr('Pagar un servicio acordado'))}</a></div></div>
+    <img class="detail-image" src="${escape(project.image)}" alt="${escape(tr(project.alt))}"></div>` : `<p>${escape(tr('Este proyecto no existe. Vuelve al catálogo para explorar las soluciones disponibles.'))}</p>`}
     </main><footer>© 2026 Extreme Solutions · Erik Sanchez</footer></body></html>`;
 }
