@@ -5,7 +5,7 @@
     "node": ">=20"
   },
   "scripts": {
-    "build": "node extreme-solutions/scripts/build.mjs",
+    "build": "node extreme-solutions/scripts/build.mjs && node extreme-solutions/scripts/export-public.mjs",
     "test": "node --test extreme-solutions/tests/*.test.mjs"
   }
 }

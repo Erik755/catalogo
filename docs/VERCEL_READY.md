@@ -5,8 +5,9 @@ Repositorio: https://github.com/Erik755/extreme-solutions
 En el proyecto existente `extreme-solutions` de Vercel:
 
 1. Settings → Git: conectar `Erik755/extreme-solutions`.
-2. Root Directory: la raíz del repositorio. `vercel.json` publica automáticamente
-   la carpeta `extreme-solutions` y expone sus funciones mediante `api/`.
+2. Root Directory: la raíz del repositorio. `npm run build` genera `dist/` solo con los
+   archivos públicos (HTML, CSS, JS y `assets/`) y `vercel.json` publica esa carpeta;
+   las funciones se exponen mediante `api/`. Documentación, tests y scripts no se publican.
 3. Framework Preset: **Other**. Build Command y Output Directory se leen de
    `vercel.json`; no es necesario configurarlos manualmente.
 4. No se requieren variables de entorno: el sitio ya no procesa pagos. La tarjeta
@@ -27,7 +28,7 @@ de `api/` es `project.js`, que genera las páginas `/proyecto/:slug`.
 
 ## Vista local
 
-Desde esta carpeta: `npm run build` y `npm run dev`.
+Desde `extreme-solutions/`: `npm run build` y `npm run dev`.
 Abrir http://127.0.0.1:4174. Incluye páginas dinámicas.
 
 ## Catálogo y preferencias
