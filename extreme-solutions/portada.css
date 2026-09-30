@@ -58,6 +58,33 @@
   }
 }
 
+/* La nav es fija (72px + borde): el contenido del héroe siempre empieza debajo de ella,
+   aunque la ventana sea baja y el héroe crezca más que min-height. */
+.hero { --nav-h: 73px; }
+.hero .shell { padding-top: calc(var(--nav-h) + clamp(1.25rem, 4vh, 2.5rem)); }
+/* Nav de escritorio: una sola fila sin cortes; en anchos intermedios pasa a dos filas. */
+@media (min-width: 681px) {
+  .nav-links { flex-wrap: nowrap; white-space: nowrap; }
+  .nav-links > * { flex-shrink: 0; }
+}
+@media (min-width: 681px) and (max-width: 1100px) {
+  .nav-links { gap: .75rem; }
+}
+@media (min-width: 681px) and (max-width: 900px) {
+  .nav-inner { flex-wrap: wrap; row-gap: 0; padding-bottom: .5rem; }
+  .nav-links { flex: 1 0 100%; flex-wrap: wrap; justify-content: flex-start; gap: .25rem .75rem; }
+  .hero { --nav-h: 8rem; }
+}
+/* Ventanas bajas (laptops): título algo menor para que quepan título, texto y botones. */
+@media (min-width: 681px) and (max-height: 760px) {
+  .hero h1 { font-size: clamp(2.6rem, min(7vw, 12.5vh), 5.4rem); }
+  .hero .profile-lockup { margin-bottom: 1.25rem; }
+  .hero .profile-lockup img { width: 88px; height: 88px; }
+  .hero .hero-copy { margin-top: 1rem; font-size: clamp(1.02rem, 1.2vw + .3rem, 1.25rem); }
+  .hero .hero-actions { margin-top: 1.5rem; }
+  .hero .shell { padding-bottom: 2.5rem; }
+}
+
 /* Servicios (#enfoque): continúa el escenario oscuro con tarjetas de vidrio. */
 #enfoque {
   --ink: #edf2fa;
