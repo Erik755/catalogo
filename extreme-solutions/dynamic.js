@@ -87,17 +87,17 @@ updateNavigation();
 
 // Animate on entry without ever hiding content in CSS (including failed JS loads).
 if ('IntersectionObserver' in window) {
+  // Revelado suave y escalonado entre hermanos (solo opacity/transform; el contenido nunca se oculta en CSS).
   const observer = new IntersectionObserver(entries => {
-    entries.forEach(({ target, isIntersecting }) => {
-      if (!isIntersecting) return;
+    entries.filter(entry => entry.isIntersecting).forEach(({ target }, order) => {
       if (!reduced.matches && target.animate) target.animate(
-        [{ opacity: .3, transform: 'translateY(20px)' }, { opacity: 1, transform: 'translateY(0)' }],
-        { duration: 500, easing: 'cubic-bezier(.2,.7,.3,1)' }
+        [{ opacity: 0, transform: 'translateY(24px) scale(.985)' }, { opacity: 1, transform: 'none' }],
+        { duration: 650, delay: Math.min(order, 5) * 70, easing: 'cubic-bezier(.23, 1, .32, 1)', fill: 'backwards' }
       );
       observer.unobserve(target);
     });
   }, { threshold: .08 });
-  document.querySelectorAll('.section-head, .capability, .tool-card, .method-step, .project').forEach(el => observer.observe(el));
+  document.querySelectorAll('.section-head, .capability, .tool-card, .method-step, .project, .metric, .play-card, .image-panel, .badge-list span').forEach(el => observer.observe(el));
   reduced.addEventListener('change', () => {
     if (reduced.matches) document.getAnimations().forEach(animation => animation.cancel());
   });

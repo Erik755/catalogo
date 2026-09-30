@@ -13,12 +13,15 @@
   <link rel="icon" type="image/png" href="assets/embedded-1.png">
   <link rel="stylesheet" href="/base.css">
   <link rel="stylesheet" href="dynamic.css">
+  <link rel="stylesheet" href="/portada.css">
   <script src="/i18n-data.js"></script>
   <script src="/i18n.js"></script>
   <script src="/preferences.js"></script>
   <script src="dynamic.js" defer></script>
   <script src="/catalog.js" defer></script>
   <script src="/linkedin-consent.js" defer></script>
+  <script src="/tilt.js" defer></script>
+  <script src="/hero3d-loader.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -41,6 +44,7 @@
   </nav>
 
   <header id="inicio" class="hero">
+    <div class="hero-stage" aria-hidden="true"><canvas class="hero-canvas"></canvas></div>
     <div class="shell">
       <div class="profile-lockup">
         <img loading="lazy" decoding="async" src="assets/embedded-5.webp" alt="Icono de perfil de Erik Sanchez">
@@ -70,22 +74,22 @@
         </div>
 
         <div class="capability-grid" aria-label="Capacidades principales">
-          <article class="capability">
+          <article class="capability" data-tilt>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"></rect><path d="M11 18h2"></path><path d="M9 6h6"></path></svg>
             <h3>Android en campo</h3>
             <p>Diseñamos apps para capturar datos desde el teléfono, incluso cuando el usuario no depende de computadora.</p>
           </article>
-          <article class="capability">
+          <article class="capability" data-tilt>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="M8 13h8"></path><path d="M8 17h5"></path></svg>
             <h3>Entregables profesionales</h3>
             <p>Generación de entregables en PDF y Excel con estructura clara, evidencia, firmas y datos listos para compartir.</p>
           </article>
-          <article class="capability">
+          <article class="capability" data-tilt>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"></path><circle cx="12" cy="13" r="3"></circle></svg>
             <h3>Evidencia visual</h3>
             <p>Flujos para tomar fotos, marcar fallas, agregar notas visuales y explicar hallazgos con menos fricción.</p>
           </article>
-          <article class="capability">
+          <article class="capability" data-tilt>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v3"></path><path d="M12 18v3"></path><path d="M3 12h3"></path><path d="M18 12h3"></path><path d="m5.6 5.6 2.1 2.1"></path><path d="m16.3 16.3 2.1 2.1"></path><path d="m18.4 5.6-2.1 2.1"></path><path d="m7.7 16.3-2.1 2.1"></path><circle cx="12" cy="12" r="4"></circle></svg>
             <h3>IA aplicada</h3>
             <p>Integramos asistentes, generación multimedia y flujos inteligentes para reducir pasos repetitivos.</p>
@@ -122,27 +126,27 @@
           <p class="lead">Elegimos cada capa para que la solución sea clara para quien la usa y sólida para quien la opera, mantiene y publica.</p>
         </div>
         <div class="tool-grid" aria-label="Herramientas de desarrollo y producto">
-          <article class="tool-card">
+          <article class="tool-card" data-tilt>
             <div class="tool-kicker">Frontend móvil</div>
             <h3>Android nativo</h3>
             <p>Java, Android SDK y Gradle para interfaces, captura en cámara y galería, firmas, permisos, archivos y operación sin depender de una computadora.</p>
           </article>
-          <article class="tool-card">
+          <article class="tool-card" data-tilt>
             <div class="tool-kicker">Frontend web</div>
             <h3>Interfaces de operación</h3>
             <p>React, Vite y Tailwind CSS para paneles web ágiles, consistentes y orientados a ventas, inventario, recetas, cortes y reportes.</p>
           </article>
-          <article class="tool-card">
+          <article class="tool-card" data-tilt>
             <div class="tool-kicker">Backend y datos</div>
             <h3>Información que permanece útil</h3>
             <p>Base44, almacenamiento local con SharedPreferences y Google Sheets para conservar, organizar y consultar información de operación.</p>
           </article>
-          <article class="tool-card">
+          <article class="tool-card" data-tilt>
             <div class="tool-kicker">Documentos y medios</div>
             <h3>Evidencia lista para entregar</h3>
             <p>PDF nativo, Excel, imágenes, anotaciones, firmas y acceso controlado a archivos para convertir el trabajo diario en entregables claros.</p>
           </article>
-          <article class="tool-card">
+          <article class="tool-card" data-tilt>
             <div class="tool-kicker">Calidad y despliegue</div>
             <h3>Del repositorio al usuario</h3>
             <p>GitHub, Vercel, Android Studio, pruebas en dispositivo y Google Play Console para construir, validar, publicar y mejorar cada producto.</p>

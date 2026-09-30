@@ -1,0 +1,145 @@
+/* Portada: escenario oscuro con focos de color, escena 3D (WebGL) y tarjetas de vidrio.
+   Solo se animan transform y opacity; respeta reducir movimiento, transparencia y más contraste. */
+
+/* Héroe: casi negro con focos radiales de color de marca detrás del objeto 3D. */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  touch-action: pan-y;
+  background:
+    radial-gradient(42% 52% at 74% 46%, rgba(37, 99, 235, .42), transparent 70%),
+    radial-gradient(26% 34% at 88% 74%, rgba(34, 211, 238, .24), transparent 70%),
+    radial-gradient(30% 38% at 58% 18%, rgba(96, 165, 250, .16), transparent 70%),
+    radial-gradient(38% 44% at 8% 4%, rgba(16, 185, 129, .10), transparent 70%),
+    #04060b;
+}
+.hero::after { content: ""; position: absolute; inset: auto 0 0; height: 30%; z-index: 0; background: linear-gradient(transparent, rgba(4, 6, 11, .6)); pointer-events: none; }
+.hero .shell { position: relative; z-index: 1; }
+.hero-stage {
+  position: absolute;
+  z-index: 0;
+  inset: 0 0 0 38%;
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(75% 70% at 55% 50%, #000 58%, transparent 100%);
+  mask-image: radial-gradient(75% 70% at 55% 50%, #000 58%, transparent 100%);
+}
+/* Respaldo estático (sin WebGL, sin JS, reducir movimiento): fotograma de la misma escena. */
+.hero-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #04060b url("/assets/hero-3d-fallback.webp") center / cover no-repeat;
+  transition: opacity .9s var(--ease-out);
+}
+.hero-canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; opacity: 0; transition: opacity 1s var(--ease-out); }
+.hero-stage.is-live::before { opacity: 0; }
+.hero-stage.is-live .hero-canvas { opacity: 1; }
+.hero h1 { max-width: min(780px, 7.2em); text-shadow: 0 2px 30px rgba(4, 6, 11, .45); }
+
+@media (max-width: 980px) {
+  .hero-stage { inset: 0 0 0 22%; opacity: .9; }
+}
+@media (max-width: 680px) {
+  .hero {
+    min-height: 100svh;
+    background:
+      radial-gradient(70% 34% at 50% 26%, rgba(37, 99, 235, .45), transparent 72%),
+      radial-gradient(40% 22% at 78% 40%, rgba(34, 211, 238, .22), transparent 70%),
+      radial-gradient(60% 30% at 10% 4%, rgba(16, 185, 129, .10), transparent 70%),
+      #04060b;
+  }
+  .hero-stage {
+    inset: 3.5rem 0 auto;
+    height: 52svh;
+    opacity: 1;
+    -webkit-mask-image: linear-gradient(#000 62%, transparent);
+    mask-image: linear-gradient(#000 62%, transparent);
+  }
+}
+
+/* Servicios (#enfoque): continúa el escenario oscuro con tarjetas de vidrio. */
+#enfoque {
+  --ink: #edf2fa;
+  --ink-2: #dce6f5;
+  --muted: #a9b6ca;
+  --line: rgba(255, 255, 255, .1);
+  position: relative;
+  color: var(--ink);
+  background:
+    radial-gradient(45% 55% at 12% 0%, rgba(37, 99, 235, .24), transparent 70%),
+    radial-gradient(35% 50% at 92% 96%, rgba(34, 211, 238, .14), transparent 70%),
+    radial-gradient(30% 40% at 60% 55%, rgba(96, 165, 250, .08), transparent 70%),
+    #05080f;
+}
+#enfoque .eyebrow { color: #67e8f9; }
+#enfoque .capability {
+  border: 1px solid rgba(255, 255, 255, .1);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .075), rgba(255, 255, 255, .02));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), 0 24px 60px rgba(0, 0, 0, .35);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+}
+#enfoque .capability svg { filter: drop-shadow(0 0 14px currentColor); }
+#enfoque .capability:nth-child(1) svg { color: #8bb5ff; }
+#enfoque .capability::after { box-shadow: 0 30px 70px rgba(0, 0, 0, .45); }
+
+/* Herramientas: vidrio claro u oscuro según el tema, sobre focos suaves. */
+.section:has(> .shell > .tool-grid) {
+  background:
+    radial-gradient(40% 50% at 85% 10%, rgba(37, 99, 235, .10), transparent 70%),
+    radial-gradient(35% 45% at 10% 90%, rgba(14, 155, 184, .10), transparent 70%),
+    var(--paper);
+}
+.tool-card {
+  border: 1px solid rgba(15, 23, 42, .08);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .78), rgba(255, 255, 255, .55));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 14px 40px rgba(15, 23, 42, .06);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  backdrop-filter: blur(16px) saturate(150%);
+}
+html[data-theme="dark"] .tool-card {
+  border-color: rgba(255, 255, 255, .1);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .02));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .07), 0 20px 50px rgba(0, 0, 0, .3);
+}
+html[data-theme="dark"] .section:has(> .shell > .tool-grid) {
+  background:
+    radial-gradient(40% 50% at 85% 10%, rgba(37, 99, 235, .18), transparent 70%),
+    radial-gradient(35% 45% at 10% 90%, rgba(34, 211, 238, .10), transparent 70%),
+    var(--paper);
+}
+
+/* Inclinación 3D (tilt.js) y brillo que sigue al cursor. */
+[data-tilt].is-tilting { transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); }
+[data-tilt]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(22rem circle at var(--glare-x, 50%) var(--glare-y, 0%), rgba(255, 255, 255, .14), transparent 60%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .35s var(--ease-out);
+}
+[data-tilt].is-tilting::before { opacity: 1; }
+.tool-card[data-tilt]::before { background: radial-gradient(22rem circle at var(--glare-x, 50%) var(--glare-y, 0%), rgba(37, 99, 235, .10), transparent 60%); }
+html[data-theme="dark"] .tool-card[data-tilt]::before { background: radial-gradient(22rem circle at var(--glare-x, 50%) var(--glare-y, 0%), rgba(255, 255, 255, .10), transparent 60%); }
+
+/* Accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  [data-tilt].is-tilting { transform: none; }
+}
+@media (prefers-reduced-transparency: reduce) {
+  #enfoque .capability { background: #0e1829; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .tool-card { background: var(--white); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  html[data-theme="dark"] .tool-card { background: #152338; }
+}
+@media (prefers-contrast: more) {
+  #enfoque { --line: rgba(255, 255, 255, .6); --muted: #d6deeb; }
+  #enfoque .capability { background: #0b1322; border-color: rgba(255, 255, 255, .6); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .tool-card { background: var(--white); border-color: var(--line); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  html[data-theme="dark"] .tool-card { background: #152338; border-color: var(--line); }
+  .hero-stage { opacity: .7; }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "extreme-solutions-hero-3d",
+  "private": true,
+  "type": "module",
+  "description": "Fuente de la escena 3D de la portada. Genera ../hero3d.js (Three.js empaquetado y minificado, versión fija).",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.10",
+    "three": "0.186.1"
+  }
+}

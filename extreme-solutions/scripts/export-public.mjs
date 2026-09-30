@@ -24,4 +24,12 @@ for (const entry of readdirSync(path.join(siteRoot, 'assets'), { withFileTypes: 
     copied.push('assets/' + entry.name);
   }
 }
+// Licencias de terceros incluidas en el sitio (p. ej. three.js, MIT).
+mkdirSync(path.join(outDir, 'licenses'), { recursive: true });
+for (const entry of readdirSync(path.join(siteRoot, 'licenses'), { withFileTypes: true })) {
+  if (entry.isFile() && /^[\w.-]+\.txt$/.test(entry.name)) {
+    cpSync(path.join(siteRoot, 'licenses', entry.name), path.join(outDir, 'licenses', entry.name));
+    copied.push('licenses/' + entry.name);
+  }
+}
 console.log(`Exported ${copied.length} public files to ${outDir}`);
