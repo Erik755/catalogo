@@ -311,23 +311,28 @@
       </div>
     </section>
 
-    
-    <section class="section" id="pagos">
+    <section class="section section-compact" id="pagos" aria-labelledby="pagos-title">
       <div class="shell">
-        <div class="eyebrow">Pagos</div>
-        <div class="stripe-payment-card">
-          <h2>Pago seguro por servicios digitales</h2>
-          <p>Ingresa el importe acordado para tu desarrollo, configuración o servicio. El cobro se completa en la página segura de Stripe.</p>
-          <div class="stripe-amount-wrap">
-            <label for="stripeAmount">Importe en MXN</label>
-            <input class="stripe-amount-input" id="stripeAmount" type="number" inputmode="decimal" min="10" max="500000" step="0.01" placeholder="Ej. 1500.00" autocomplete="off">
+        <article class="capability capability-wide">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"></rect><path d="M2 10h20"></path><path d="M6 15h4"></path></svg>
+          <div class="capability-wide-copy">
+            <div class="capability-wide-kickers"><span class="tool-kicker">Servicio</span><span class="demo-badge">Demostración</span></div>
+            <h3 id="pagos-title">Integración de pasarelas de pago</h3>
+            <p>Implementamos Stripe, PayPal y Mercado Pago en sitios web y apps de nuestros clientes: cobros seguros, suscripciones y pagos recurrentes, con comprobantes y facturación integrados a su operación.</p>
+            <div class="chips" aria-label="Pasarelas y capacidades">
+              <span class="chip">Stripe</span>
+              <span class="chip">PayPal</span>
+              <span class="chip">Mercado Pago</span>
+              <span class="chip">Suscripciones</span>
+              <span class="chip">Facturación</span>
+            </div>
           </div>
-          <div class="stripe-payment-actions">
-            <button class="stripe-pay-button" id="stripePayButton" type="button">Pagar con Stripe</button>
-            <span class="stripe-payment-note">Los datos de tarjeta se capturan directamente en Stripe.</span>
+          <div class="capability-wide-action">
+            <!-- Módulo de pagos de MUESTRA: no hay cuenta ni Payment Link de Stripe configurados; el enlace solo lleva a stripe.com y no procesa ningún cobro. -->
+            <a class="btn light pay-link" href="https://stripe.com" target="_blank" rel="noopener noreferrer">Realizar pago</a>
+            <span class="pay-note">Este módulo de pagos es solo de muestra.</span>
           </div>
-          <div class="stripe-payment-status" id="stripePaymentStatus" role="status" aria-live="polite"></div>
-        </div>
+        </article>
       </div>
     </section>
 
@@ -371,57 +376,6 @@
   </footer>
   <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
 
-  <script>
-  (() => {
-    const button = document.getElementById('stripePayButton');
-    const amountInput = document.getElementById('stripeAmount');
-    const status = document.getElementById('stripePaymentStatus');
-    const params = new URLSearchParams(window.location.search);
-    const t = message => window.extremeI18n?.t(message) || message;
-
-    const showStatus = (message) => {
-      if (!status) return;
-      status.textContent = t(message);
-      status.classList.add('is-visible');
-    };
-
-    if (params.get('payment') === 'success') {
-      showStatus('Regresaste de Stripe. La confirmación del pago depende de la verificación del servidor.');
-    } else if (params.get('payment') === 'cancelled') {
-      showStatus('Saliste del proceso de pago. Puedes intentarlo nuevamente.');
-    }
-
-    button?.addEventListener('click', async () => {
-      const amountMxn = Number(amountInput?.value);
-
-      if (!Number.isFinite(amountMxn) || amountMxn < 10 || amountMxn > 500000) {
-        showStatus('Ingresa un importe válido entre $10 y $500,000 MXN.');
-        amountInput?.focus();
-        return;
-      }
-
-      button.disabled = true;
-      const original = button.textContent;
-      button.textContent = t('Abriendo Stripe…');
-
-      try {
-        const response = await fetch('/api/create-checkout-session', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ amountMxn })
-        });
-        const data = await response.json();
-        if (!response.ok || !data.url) throw new Error(data.error || 'No fue posible iniciar el pago');
-        window.location.assign(data.url);
-      } catch (error) {
-        console.error(error);
-        showStatus('No fue posible abrir el pago. Intenta nuevamente en unos minutos.');
-        button.disabled = false;
-        button.textContent = original;
-      }
-    });
-  })();
-  </script>
 
 </body>
 </html>

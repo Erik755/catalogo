@@ -722,19 +722,21 @@
       }
     }
   
-  /* Stripe Checkout */
-  .stripe-payment-card{margin-top:28px;padding:28px;border:1px solid rgba(255,255,255,.12);border-radius:22px;background:rgba(10,22,38,.82);box-shadow:0 18px 60px rgba(0,0,0,.2)}
-  .stripe-payment-card h3{margin:8px 0 10px;font-size:clamp(1.4rem,3vw,2rem)}
-  .stripe-payment-card p{max-width:760px}
-  .stripe-amount-wrap{display:grid;gap:7px;max-width:300px;margin-top:18px}
-  .stripe-amount-wrap label{font-size:.92rem;font-weight:700}
-  .stripe-amount-input{width:100%;padding:13px 15px;border-radius:13px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:inherit;font:inherit;outline:none}
-  .stripe-amount-input:focus{border-color:rgba(255,255,255,.45)}
-  .stripe-payment-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:18px}
-  .stripe-pay-button{appearance:none;border:0;border-radius:999px;padding:13px 22px;font:inherit;font-weight:700;cursor:pointer;background:#fff;color:#07111f;transition:transform .18s ease,opacity .18s ease}
-  .stripe-pay-button:hover{transform:translateY(-1px)}
-  .stripe-pay-button:disabled{opacity:.55;cursor:wait;transform:none}
-  .stripe-payment-note{font-size:.9rem;opacity:.72}
-  .stripe-payment-status{display:none;margin-top:16px;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.08)}
-  .stripe-payment-status.is-visible{display:block}
+  /* Servicio: integración de pasarelas de pago (tarjeta discreta, mismo componente que .capability) */
+  .section.section-compact{padding:44px 0}
+  .capability.capability-wide{min-height:0;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:22px;align-items:center}
+  .capability.capability-wide svg{margin:0;align-self:start;color:var(--cyan)}
+  .capability-wide-kickers{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+  .demo-badge{display:inline-flex;align-items:center;min-height:20px;padding:0 8px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:.7rem;font-weight:700;letter-spacing:.04em}
+  .capability-wide-copy h3{margin:6px 0 8px}
+  .capability-wide-copy p{max-width:720px}
+  .capability-wide-copy .chips{margin-top:14px}
+  .capability-wide-action{display:grid;justify-items:end;gap:8px;text-align:right}
+  .capability-wide-action .btn{min-height:42px;padding:0 16px;font-size:.95rem}
+  .pay-note{max-width:220px;color:var(--muted);font-size:.84rem;line-height:1.4}
+  @media (max-width:760px){
+    .capability.capability-wide{grid-template-columns:1fr;gap:14px}
+    .capability-wide-action{justify-items:start;text-align:left}
+    .pay-note{max-width:none}
+  }
 

@@ -2,7 +2,7 @@
 [hidden] { display: none !important; }
 html { scroll-padding-top: 100px; }
 :focus-visible { outline: 3px solid #2563eb; outline-offset: 5px; }
-.nav :focus-visible, .hero :focus-visible, .stripe-payment-card :focus-visible { outline-color: #67e8f9; }
+.nav :focus-visible, .hero :focus-visible { outline-color: #67e8f9; }
 .skip-link { position: fixed; top: 8px; left: 8px; z-index: 50; padding: 12px 18px; background: white; color: #0b1220; transform: translateY(-160%); }
 .skip-link:focus { transform: none; }
 .nav { position: fixed; z-index: 20; transition: background .25s, box-shadow .25s; }
@@ -51,9 +51,6 @@ html[data-theme="dark"] :is(.chip, .quote) { background: #203650; color: #dce6f5
 html[data-theme="dark"] footer { color: #afbdd1; }
 html[data-theme="dark"] .project-video { color: #8bb5ff; }
 @media (max-width: 768px) { .detail-layout { grid-template-columns: 1fr; } }
-.stripe-payment-card { color: #f8fafc; background: #0b1220; }
-.stripe-payment-note { opacity: 1; color: #cbd5e1; }
-.stripe-amount-input::placeholder { color: #aebacd; }
 .section .eyebrow { color: #176379; }
 .closing .eyebrow, .proof-band .eyebrow { color: #67e8f9; }
 @media (max-width: 680px) {
@@ -63,7 +60,6 @@ html[data-theme="dark"] .project-video { color: #8bb5ff; }
   .nav-inner { flex-wrap: wrap; }
   .nav-links.is-enhanced { position: absolute; top: 100%; left: -14px; right: -14px; padding: 16px 24px; background: #0b1220; border-top: 1px solid #ffffff33; box-shadow: 0 12px 20px #0002; }
   .nav-links.is-enhanced a { width: 100%; }
-  .stripe-payment-card { padding: 20px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
