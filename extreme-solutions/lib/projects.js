@@ -36,7 +36,7 @@ export function projectPage(project, requestedLanguage = 'es') {
   return `<!doctype html><html lang="${language}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
     <title>${escape(title)} | Extreme Solutions</title><meta name="description" content="${escape(tr(project?.description || 'Consulta los proyectos de Extreme Solutions.'))}">
     ${project ? '' : '<meta name="robots" content="noindex">'}
-    <link rel="stylesheet" href="/base.css"><link rel="stylesheet" href="/dynamic.css"><script src="/i18n-data.js"></script><script src="/i18n.js"></script><script src="/preferences.js"></script></head>
+    <link rel="icon" type="image/png" href="/assets/embedded-1.png"><link rel="stylesheet" href="/base.css"><link rel="stylesheet" href="/dynamic.css"><script src="/i18n-data.js"></script><script src="/i18n.js"></script><script src="/preferences.js"></script></head>
     <body><a class="skip-link" href="#contenido">${escape(tr('Saltar al contenido'))}</a>
     <nav class="nav is-scrolled" aria-label="${escape(tr('Principal'))}"><div class="nav-inner"><a class="brand" href="/${languageQuery}"><span>Extreme Solutions</span></a><div class="detail-preferences"><button class="language-toggle" type="button" hidden>${escape(tr('Cambiar idioma'))}</button><button class="theme-toggle" type="button" hidden>${escape(tr('Cambiar tema'))}</button></div></div></nav>
     <main class="detail-page shell" id="contenido"><a href="/${languageQuery}#experiencia">${escape(tr('← Todos los proyectos'))}</a>
