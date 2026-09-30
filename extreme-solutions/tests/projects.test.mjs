@@ -52,8 +52,32 @@ test('public export excludes internal docs, tests, scripts and config', async ()
   execFileSync(process.execPath, [new URL('../scripts/export-public.mjs', import.meta.url).pathname, out]);
   const files = readdirSync(out);
   assert.ok(files.includes('index.html') && files.includes('base.css') && files.includes('i18n-data.js') && files.includes('assets'));
+  assert.ok(files.includes('privacidad.html') && files.includes('privacy.js') && files.includes('privacy.css'));
   for (const hidden of ['package.json', 'vercel.json', 'tests', 'scripts', 'lib', 'data', 'api', 'VERCEL_READY.md', 'ARCHITECTURE.md', 'STRIPE_SETUP.md', 'stripe-test.html']) {
     assert.ok(!files.includes(hidden), `${hidden} must not be public`);
   }
   assert.ok(files.every(name => !name.endsWith('.md')));
+});
+
+test('privacy page is public, fully translated and linked from project pages', async () => {
+  const { readFileSync } = await import('node:fs');
+  const html = readFileSync(new URL('../privacidad.html', import.meta.url), 'utf8');
+  const translations = JSON.parse(readFileSync(new URL('../data/translations.json', import.meta.url), 'utf8'));
+  const sameInBothLanguages = new Set(['Extreme Solutions', 'Reporte Servicio Pro', 'Reporte de Servicio', 'Control de Gastos Pro',
+    'The Museum of You', 'LTV Maestro · La Tercera Vuelta', 'Contactos', 'sanchezerik836@gmail.com',
+    'com.reporteservicio.pro', 'com.reporteservicio.reporter', 'app.lentes.camaras', '© 2026 Extreme Solutions · Erik Sanchez']);
+  const body = html.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, '').split('<body')[1];
+  const texts = [...body.matchAll(/>([^<>]+)</g)].map(match => match[1].trim()).filter(text => /\p{L}/u.test(text));
+  const decode = text => text.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+  const untranslated = texts.map(decode).filter(text => !translations[text] && !sameInBothLanguages.has(text) && !text.startsWith('erik755.github.io/'));
+  assert.deepEqual(untranslated, []);
+  for (const attribute of [...html.matchAll(/(?:placeholder|aria-label|content)="([^"]+)"/g)].map(match => match[1])) {
+    if (/\p{L}{3,}/u.test(attribute) && !/width=|index,follow|UTF-8/.test(attribute) && attribute !== 'Extreme Solutions') assert.ok(translations[attribute], attribute);
+  }
+  assert.ok(!/<script>(?!<\/script>)|\sstyle="|\son[a-z]+="/i.test(html), 'no inline scripts, styles or handlers (CSP)');
+  for (const project of projects.filter(item => item.privacy)) {
+    assert.ok(html.includes(`id="${project.privacy}"`), `privacy anchor for ${project.id}`);
+    assert.ok(projectPage(project).includes(`/privacidad#${project.privacy}`));
+    assert.ok(projectPage(project, 'en').includes(`/privacidad?lang=en#${project.privacy}`));
+  }
 });

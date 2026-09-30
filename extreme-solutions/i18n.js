@@ -65,7 +65,7 @@
   function updateLinks() {
     document.querySelectorAll('a[href^="/"]').forEach(link => {
       const url = new URL(link.href, location.origin);
-      if (url.origin !== location.origin || (url.pathname !== '/' && !url.pathname.startsWith('/proyecto/'))) return;
+      if (url.origin !== location.origin || (!['/', '/privacidad'].includes(url.pathname) && !url.pathname.startsWith('/proyecto/'))) return;
       language === 'en' ? url.searchParams.set('lang', 'en') : url.searchParams.delete('lang');
       link.href = url.pathname + url.search + url.hash;
     });

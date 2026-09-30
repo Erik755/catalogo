@@ -19,7 +19,8 @@
         "label": "Ver demostración →"
       }
     ],
-    "featured": false
+    "featured": false,
+    "privacy": "reporte-servicio-pro"
   },
   {
     "id": "control-gastos-pro",
@@ -40,7 +41,8 @@
         "label": "Ver demostración →"
       }
     ],
-    "featured": false
+    "featured": false,
+    "privacy": "control-gastos-pro"
   },
   {
     "id": "lentes",
@@ -62,7 +64,8 @@
         "label": "Ver demostración →"
       }
     ],
-    "featured": false
+    "featured": false,
+    "privacy": "lentes"
   },
   {
     "id": "museum-of-you",

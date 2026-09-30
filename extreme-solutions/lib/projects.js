@@ -16,6 +16,7 @@ for (const project of projects) {
   if (!project.title || !project.description || !Array.isArray(project.tags)) throw new Error('Incomplete project');
   if (!/^\/assets\/[a-zA-Z0-9.-]+$/.test(project.image) && !project.image.startsWith('https://')) throw new Error('Invalid image');
   for (const link of project.links) if (new URL(link.url).protocol !== 'https:') throw new Error('Unsafe project link');
+  if (project.privacy !== undefined && !/^[a-z0-9-]+$/.test(project.privacy)) throw new Error('Invalid privacy anchor');
 }
 
 export function card(project) {
@@ -42,7 +43,7 @@ export function projectPage(project, requestedLanguage = 'es') {
     <main class="detail-page shell" id="contenido"><a href="/${languageQuery}#experiencia">${escape(tr('← Todos los proyectos'))}</a>
     <div class="detail-heading"><p class="eyebrow">${escape(tr(project?.type || 'Error 404'))}</p><h1>${escape(title)}</h1></div>
     ${project ? `<div class="detail-layout"><div><p class="lead">${escape(tr(project.description))}</p><h2>${escape(tr('Tecnologías y capacidades'))}</h2><div class="chips">${project.tags.map(tag => `<span class="chip">${escape(tr(tag))}</span>`).join('')}</div>
-    <div class="detail-actions">${project.links.map(link => `<a class="btn dark" href="${escape(link.url)}" target="_blank" rel="noreferrer">${escape(tr(link.label))}</a>`).join('')}</div></div>
+    <div class="detail-actions">${project.links.map(link => `<a class="btn dark" href="${escape(link.url)}" target="_blank" rel="noreferrer">${escape(tr(link.label))}</a>`).join('')}${project.privacy ? `<a class="btn light" href="/privacidad${languageQuery}#${project.privacy}">${escape(tr('Política de privacidad'))}</a>` : ''}</div></div>
     <img class="detail-image" src="${escape(project.image)}" alt="${escape(tr(project.alt))}"></div>` : `<p>${escape(tr('Este proyecto no existe. Vuelve al catálogo para explorar las soluciones disponibles.'))}</p>`}
-    </main><footer>© 2026 Extreme Solutions · Erik Sanchez</footer></body></html>`;
+    </main><footer><span>© 2026 Extreme Solutions · Erik Sanchez</span> <span class="footer-links"><a href="/privacidad${languageQuery}">${escape(tr('Privacidad'))}</a></span></footer></body></html>`;
 }

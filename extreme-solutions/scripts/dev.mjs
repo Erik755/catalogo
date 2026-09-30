@@ -21,7 +21,7 @@ http.createServer(async (req, res) => {
   }
   try {
     if (!['GET', 'HEAD'].includes(req.method)) { res.writeHead(405); return res.end(); }
-    const relative = decodeURIComponent(url.pathname === '/' ? '/index.html' : url.pathname);
+    const relative = decodeURIComponent(url.pathname === '/' ? '/index.html' : url.pathname === '/privacidad' ? '/privacidad.html' : url.pathname);
     if (!/^\/(?:[\w-]+\.(?:html|css|js)|assets\/[\w.-]+)$/.test(relative)) throw new Error('Not public');
     const filename = path.join(root, relative);
     const content = await readFile(filename);
