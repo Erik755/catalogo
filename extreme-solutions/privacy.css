@@ -109,3 +109,19 @@ html[data-theme="dark"] .privacy-toc a:hover, html[data-theme="dark"] .privacy-t
 @media (max-width: 440px) {
   .privacy-body .brand span { display: none; }
 }
+
+/* Avisos completos (LFPDPPP, apps con texto íntegro en esta página). */
+.policy-doc { display: grid; gap: 12px; }
+.policy-doc-section { padding: 16px 18px; border: 1px solid var(--line); border-radius: 8px; background: var(--white); }
+.policy-doc-section h3 { margin: 0 0 10px; font-size: 1.02rem; }
+.policy-doc-section p { margin: 0 0 10px; color: var(--ink-2); }
+.policy-doc-section ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: .95rem; }
+.policy-doc-section li + li { margin-top: 7px; }
+.policy-doc a, .privacy-list a { color: var(--blue); font-weight: 700; overflow-wrap: anywhere; }
+.policy-full .policy-badge { color: #1d4ed8; background: rgba(37, 99, 235, .1); }
+.consent-panel { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin-top: 14px; padding: 14px 16px; border: 1px dashed var(--line); border-radius: 8px; }
+.consent-panel[hidden] { display: none; }
+.consent-status { margin: 0; color: var(--muted); }
+html[data-theme="dark"] .policy-doc-section { background: #152338; }
+html[data-theme="dark"] .policy-full .policy-badge { color: #93c5fd; background: rgba(147, 197, 253, .12); }
+html[data-theme="dark"] :is(.policy-doc a, .privacy-list a) { color: #8bb5ff; }

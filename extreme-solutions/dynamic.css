@@ -65,3 +65,15 @@ html[data-theme="dark"] .project-video { color: #8bb5ff; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* Aviso legal breve del pie y enlaces del pie. */
+.footer-links { display: inline-flex; flex-wrap: wrap; gap: 6px 16px; margin-left: 10px; }
+.footer-legal { display: block; flex-basis: 100%; margin-top: 6px; font-size: .82rem; opacity: .85; }
+
+/* Distintivo de LinkedIn con consentimiento previo. */
+.linkedin-consent { display: grid; gap: 10px; margin-top: 4px; }
+.linkedin-consent[hidden] { display: none; }
+.linkedin-consent p { margin: 0; color: rgba(248, 250, 252, .8); font-size: .9rem; }
+.linkedin-consent a { color: #67e8f9; }
+.linkedin-consent .btn { justify-self: start; }
+.linkedin-badge-wrap:has(.linkedin-consent:not([hidden])) .LI-simple-link { display: inline-flex; color: #67e8f9; font-weight: 700; }
