@@ -16,6 +16,8 @@
   apply();
   system.addEventListener('change', apply);
   window.addEventListener('extreme:languagechange', apply);
+  // Safari en iOS solo aplica :active (feedback al presionar) si existe un oyente táctil.
+  document.addEventListener('touchstart', () => {}, { passive: true });
   document.addEventListener('DOMContentLoaded', () => {
     apply();
     document.querySelectorAll('.theme-toggle').forEach(button => button.addEventListener('click', () => {

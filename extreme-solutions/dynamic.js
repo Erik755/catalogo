@@ -8,19 +8,46 @@ const links = [...menu.querySelectorAll('a')];
 menu.classList.add('is-enhanced');
 toggle.hidden = false;
 
-function closeMenu(returnFocus = false) {
-  menu.hidden = mobile.matches;
+// Menú móvil: sale desde el botón que lo abre (transform-origin en el disparador) y se cierra
+// por el mismo camino. La animación es interrumpible: si se pulsa a mitad, se invierte desde
+// el valor en pantalla. Solo se animan transform y opacity (Web Animations API, sin estilos inline).
+let menuMotion = null;
+function setMenu(open, animated = true) {
+  if (!mobile.matches) { menuMotion?.animation.cancel(); menuMotion = null; menu.hidden = false; return; }
+  if (menuMotion) {
+    if (menuMotion.open !== open) { menuMotion.open = open; if (open) menu.hidden = false; menuMotion.animation.reverse(); }
+    return;
+  }
+  if (!animated || !menu.animate || menu.hidden === !open) { menu.hidden = !open; return; }
+  if (open) menu.hidden = false;
+  const trigger = toggle.getBoundingClientRect();
+  const origin = `${Math.round(trigger.left + trigger.width / 2 - menu.getBoundingClientRect().left)}px 0px`;
+  const frames = reduced.matches
+    ? [{ opacity: 0 }, { opacity: 1 }]
+    : [{ opacity: 0, transform: 'translateY(-0.5rem) scale(.96)', transformOrigin: origin }, { opacity: 1, transform: 'none', transformOrigin: origin }];
+  const animation = menu.animate(frames, { duration: reduced.matches ? 150 : 200, easing: 'cubic-bezier(.23, 1, .32, 1)', direction: open ? 'normal' : 'reverse', fill: 'both' });
+  const motion = { animation, open };
+  menuMotion = motion;
+  animation.onfinish = () => {
+    if (menuMotion === motion) menuMotion = null;
+    if (!motion.open) menu.hidden = true;
+    animation.cancel();
+  };
+}
+
+function closeMenu(returnFocus = false, animated = true) {
+  setMenu(false, animated);
   toggle.setAttribute('aria-expanded', 'false');
   toggle.textContent = t('Menú');
   if (returnFocus) toggle.focus();
 }
 toggle.addEventListener('click', () => {
   const open = toggle.getAttribute('aria-expanded') !== 'true';
-  menu.hidden = !open;
+  setMenu(open);
   toggle.setAttribute('aria-expanded', String(open));
   toggle.textContent = t(open ? 'Cerrar' : 'Menú');
 });
-mobile.addEventListener('change', () => closeMenu());
+mobile.addEventListener('change', () => closeMenu(false, false));
 document.addEventListener('keydown', event => {
   if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') closeMenu(true);
 });
@@ -33,7 +60,7 @@ links.forEach(link => link.addEventListener('click', () => {
   section.setAttribute('tabindex', '-1');
   section.focus({ preventScroll: true });
 }));
-closeMenu();
+closeMenu(false, false);
 window.addEventListener('extreme:languagechange', () => {
   toggle.textContent = t(toggle.getAttribute('aria-expanded') === 'true' ? 'Cerrar' : 'Menú');
 });

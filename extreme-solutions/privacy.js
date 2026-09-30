@@ -10,26 +10,44 @@
   const empty = document.querySelector('.policy-empty');
   let topic = 'all';
 
-  // Acordeones con animación suave (sin estilos inline: solo Web Animations API).
+  // Acordeones: el contenido entra desde la cabecera y sale por el mismo camino (misma curva
+  // invertida). Solo transform y opacity; interrumpible (un segundo clic invierte la animación
+  // desde el valor en pantalla). Con movimiento reducido, solo un fundido breve.
+  const motions = new WeakMap();
+  const isOpen = details => motions.has(details) ? motions.get(details).open : details.open;
   function animate(details, open) {
     const body = details.querySelector('.policy-body');
-    if (reduced.matches || !body.animate) { details.open = open; return; }
+    const running = motions.get(details);
+    if (running) {
+      if (running.open !== open) { running.open = open; if (open) details.open = true; running.animation.reverse(); }
+      return;
+    }
+    if (details.open === open) return;
+    if (!body.animate) { details.open = open; return; }
     if (open) details.open = true;
-    const height = body.scrollHeight;
-    const frames = [{ height: '0px', opacity: 0 }, { height: height + 'px', opacity: 1 }];
-    const animation = body.animate(open ? frames : frames.reverse(), { duration: 260, easing: 'cubic-bezier(.2,.7,.3,1)' });
-    if (!open) animation.onfinish = () => { details.open = false; };
+    const frames = reduced.matches
+      ? [{ opacity: 0 }, { opacity: 1 }]
+      : [{ opacity: 0, transform: 'translateY(-0.5rem) scale(.98)' }, { opacity: 1, transform: 'none' }];
+    const animation = body.animate(frames, { duration: reduced.matches ? 150 : 220, easing: 'cubic-bezier(.23, 1, .32, 1)', direction: open ? 'normal' : 'reverse', fill: 'both' });
+    const motion = { animation, open };
+    motions.set(details, motion);
+    animation.onfinish = () => {
+      if (motions.get(details) === motion) motions.delete(details);
+      if (!motion.open) details.open = false;
+      animation.cancel();
+    };
   }
   policies.forEach(details => details.querySelector('summary').addEventListener('click', event => {
     event.preventDefault();
-    animate(details, !details.open);
+    const open = !isOpen(details);
+    animate(details, open);
     const url = new URL(location.href);
-    url.hash = details.open ? details.id : '';
+    url.hash = open ? details.id : '';
     history.replaceState(null, '', url);
   }));
   document.querySelectorAll('[data-expand]').forEach(button => button.addEventListener('click', () => {
     const open = button.dataset.expand === 'open';
-    policies.filter(details => !details.hidden && details.open !== open).forEach(details => animate(details, open));
+    policies.filter(details => !details.hidden && isOpen(details) !== open).forEach(details => animate(details, open));
   }));
 
   // Buscador y filtros por tema.

@@ -12,6 +12,10 @@
       --amber: #c77912;
       --white: #ffffff;
       --shadow: 0 22px 60px rgba(15, 23, 42, .16);
+      /* Movimiento: curvas ease-out fuertes y duraciones cortas (feedback inmediato). */
+      --ease-out: cubic-bezier(.23, 1, .32, 1);
+      --press-duration: .12s;
+      --hover-duration: .2s;
     }
 
     * {
@@ -28,6 +32,9 @@
       background: var(--paper);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
       line-height: 1.6;
+      font-optical-sizing: auto;
+      text-size-adjust: 100%;
+      -webkit-text-size-adjust: 100%;
     }
 
     img {
@@ -56,7 +63,7 @@
     }
 
     .hero .shell {
-      padding: 34px 0 84px;
+      padding: 2rem 0 5.25rem;
     }
 
     .nav {
@@ -77,13 +84,13 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 18px;
+      gap: 1rem;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: .75rem;
       min-width: 0;
       color: var(--white);
       text-decoration: none;
@@ -106,7 +113,7 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 1rem;
       color: rgba(255, 255, 255, .82);
       font-size: .94rem;
     }
@@ -118,8 +125,8 @@
     .profile-lockup {
       display: flex;
       align-items: center;
-      gap: 22px;
-      margin-bottom: 34px;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
     }
 
     .profile-lockup img {
@@ -138,21 +145,24 @@
       text-transform: uppercase;
     }
 
+    /* Tipografía: el tracking se ajusta al tamaño (negativo en títulos grandes)
+       y el interlineado es inverso al tamaño (ajustado en display, amplio en texto). */
     h1,
     h2,
     h3 {
       margin: 0;
-      line-height: 1.04;
-      letter-spacing: 0;
+      text-wrap: balance;
     }
 
     h1 {
       max-width: 780px;
       font-size: clamp(3rem, 7vw, 6.6rem);
+      line-height: 1;
+      letter-spacing: -0.032em;
     }
 
     .founder-line {
-      margin: 12px 0 0;
+      margin: .75rem 0 0;
       color: rgba(248, 250, 252, .76);
       font-size: clamp(1rem, 2vw, 1.34rem);
       font-weight: 720;
@@ -161,17 +171,19 @@
 
     .hero-copy {
       max-width: 730px;
-      margin: 24px 0 0;
+      margin: 1.5rem 0 0;
       color: rgba(248, 250, 252, .86);
       font-size: clamp(1.1rem, 2vw, 1.42rem);
+      line-height: 1.5;
+      letter-spacing: -0.006em;
     }
 
     .hero-actions,
     .actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 30px;
+      gap: .75rem;
+      margin-top: 2rem;
     }
 
     .btn {
@@ -179,8 +191,8 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      padding: 0 18px;
+      gap: .5rem;
+      padding: 0 1rem;
       border: 1px solid rgba(255, 255, 255, .28);
       border-radius: 8px;
       color: var(--white);
@@ -208,7 +220,7 @@
     }
 
     .section {
-      padding: 78px 0;
+      padding: 5rem 0;
     }
 
     .section.alt {
@@ -218,30 +230,33 @@
     .section-head {
       display: grid;
       grid-template-columns: minmax(0, .86fr) minmax(260px, .5fr);
-      gap: 44px;
+      gap: 2.75rem;
       align-items: end;
-      margin-bottom: 34px;
+      margin-bottom: 2rem;
     }
 
     h2 {
       font-size: clamp(2.2rem, 4.6vw, 4rem);
+      line-height: 1.06;
+      letter-spacing: -0.026em;
     }
 
     .lead {
       margin: 0;
       color: var(--muted);
       font-size: 1.08rem;
+      line-height: 1.55;
     }
 
     .capability-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 14px;
+      gap: 1rem;
     }
 
     .capability {
       min-height: 224px;
-      padding: 24px;
+      padding: 1.5rem;
       border: 1px solid var(--line);
       border-radius: 8px;
       background: var(--white);
@@ -253,7 +268,7 @@
       width: 34px;
       height: 34px;
       color: var(--blue);
-      margin-bottom: 18px;
+      margin-bottom: 1rem;
     }
 
     .capability:nth-child(2) svg {
@@ -270,7 +285,9 @@
 
     h3 {
       font-size: 1.16rem;
-      margin-bottom: 10px;
+      line-height: 1.3;
+      letter-spacing: -0.011em;
+      margin-bottom: .5rem;
     }
 
     .capability p,
@@ -291,11 +308,11 @@
     .metrics {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 16px;
+      gap: 1rem;
     }
 
     .metric {
-      padding: 22px;
+      padding: 1.5rem;
       border: 1px solid rgba(255, 255, 255, .16);
       border-radius: 8px;
       background: rgba(255, 255, 255, .08);
@@ -306,7 +323,8 @@
       display: block;
       font-size: clamp(1.9rem, 4vw, 3rem);
       line-height: 1;
-      margin-bottom: 10px;
+      letter-spacing: -0.024em;
+      margin-bottom: .5rem;
     }
 
     .metric span {
@@ -316,13 +334,13 @@
     .method {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 14px;
+      gap: 1rem;
     }
 
     .method-step {
       position: relative;
       min-height: 226px;
-      padding: 24px;
+      padding: 1.5rem;
       border: 1px solid var(--line);
       border-radius: 8px;
       background: var(--white);
@@ -336,12 +354,13 @@
       font-size: 2.4rem;
       font-weight: 860;
       line-height: 1;
+      letter-spacing: -0.02em;
     }
 
     .projects {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
+      gap: 1rem;
     }
 
     .project {
@@ -365,7 +384,7 @@
     }
 
     .project-body {
-      padding: 22px;
+      padding: 1.5rem;
     }
 
     .project-media img.control-gastos-media {
@@ -385,7 +404,7 @@
     }
 
     .project-media img.ltv-media {
-      padding: 42px;
+      padding: 2.5rem;
       object-fit: contain;
       background: #071827;
     }
@@ -398,7 +417,7 @@
 
     .project-type {
       display: inline-flex;
-      margin-bottom: 12px;
+      margin-bottom: .75rem;
       color: var(--blue);
       font-size: .79rem;
       font-weight: 800;
@@ -409,8 +428,8 @@
     .chips {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 16px;
+      gap: .5rem;
+      margin-top: 1rem;
     }
 
 
@@ -418,12 +437,12 @@
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 18px;
+      gap: 1rem;
     }
     .project-video {
       display: inline-flex;
       align-items: center;
-      margin-top: 18px;
+      margin-top: 1rem;
       color: var(--blue);
       font-weight: 760;
       text-decoration: none;
@@ -436,19 +455,19 @@
     .tool-grid {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 16px;
+      gap: 1rem;
     }
 
     .tool-card {
       min-height: 210px;
-      padding: 22px;
+      padding: 1.5rem;
       border: 1px solid var(--line);
       border-radius: 8px;
       background: var(--white);
     }
 
     .tool-card h3 {
-      margin: 7px 0 10px;
+      margin: .5rem 0 .5rem;
       font-size: 1.06rem;
     }
 
@@ -470,7 +489,7 @@
       display: inline-flex;
       align-items: center;
       min-height: 30px;
-      padding: 0 10px;
+      padding: 0 .5rem;
       border-radius: 8px;
       color: #334155;
       background: #eaf0f7;
@@ -481,8 +500,8 @@
     .image-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      margin-top: 28px;
+      gap: 1rem;
+      margin-top: 1.75rem;
     }
 
     .image-panel {
@@ -502,9 +521,9 @@
     .play-card {
       display: grid;
       grid-template-columns: 270px minmax(0, 1fr);
-      gap: 34px;
+      gap: 2rem;
       align-items: center;
-      padding: 30px;
+      padding: 2rem;
       border: 1px solid var(--line);
       border-radius: 8px;
       background: var(--white);
@@ -520,16 +539,16 @@
 
     .linkedin-connect {
       display: grid;
-      gap: 16px;
+      gap: 1rem;
       width: 100%;
-      padding: 22px;
+      padding: 1.5rem;
       border: 1px solid rgba(255, 255, 255, .18);
       border-radius: 8px;
       background: rgba(255, 255, 255, .08);
     }
 
     .linkedin-connect h3 {
-      margin: 6px 0 0;
+      margin: .5rem 0 0;
       color: var(--white);
       font-size: 1.08rem;
     }
@@ -543,8 +562,8 @@
     }
 
     .quote {
-      margin: 18px 0 0;
-      padding: 18px 20px;
+      margin: 1rem 0 0;
+      padding: 1rem 1.25rem;
       border-left: 4px solid var(--blue);
       color: var(--ink-2);
       background: #eef5ff;
@@ -559,32 +578,32 @@
 
     .closing .shell {
       display: grid;
-      gap: 30px;
+      gap: 2rem;
     }
 
     .closing-layout {
       display: grid;
       grid-template-columns: minmax(0, .9fr) minmax(280px, .45fr);
-      gap: 40px;
+      gap: 2.5rem;
       align-items: center;
     }
 
     .closing p {
       color: rgba(248, 250, 252, .78);
-      margin: 18px 0 0;
+      margin: 1rem 0 0;
       font-size: 1.1rem;
     }
 
     .closing-side {
       display: grid;
-      gap: 18px;
+      gap: 1rem;
       align-content: start;
     }
 
     .badge-list {
       display: grid;
       grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 10px;
+      gap: .5rem;
     }
 
     .badge-list span {
@@ -592,7 +611,7 @@
       align-items: center;
       justify-content: center;
       min-height: 54px;
-      padding: 10px 12px;
+      padding: .5rem .75rem;
       border: 1px solid rgba(255, 255, 255, .18);
       border-radius: 8px;
       background: rgba(255, 255, 255, .08);
@@ -602,7 +621,7 @@
     }
 
     footer {
-      padding: 28px 20px;
+      padding: 1.75rem 1.25rem;
       color: #64748b;
       text-align: center;
       background: var(--white);
@@ -654,7 +673,7 @@
       }
 
       .hero .shell {
-        padding-bottom: 56px;
+        padding-bottom: 3.5rem;
       }
 
       .nav-links {
@@ -676,7 +695,7 @@
       }
 
       .section {
-        padding: 56px 0;
+        padding: 3.5rem 0;
       }
 
       .capability-grid,
@@ -723,19 +742,19 @@
     }
   
   /* Servicio: integración de pasarelas de pago (tarjeta discreta, mismo componente que .capability) */
-  .section.section-compact{padding:44px 0}
-  .capability.capability-wide{min-height:0;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:22px;align-items:center}
+  .section.section-compact{padding:2.75rem 0}
+  .capability.capability-wide{min-height:0;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:1.5rem;align-items:center}
   .capability.capability-wide svg{margin:0;align-self:start;color:var(--cyan)}
-  .capability-wide-kickers{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
-  .demo-badge{display:inline-flex;align-items:center;min-height:20px;padding:0 8px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:.7rem;font-weight:700;letter-spacing:.04em}
-  .capability-wide-copy h3{margin:6px 0 8px}
+  .capability-wide-kickers{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem}
+  .demo-badge{display:inline-flex;align-items:center;min-height:20px;padding:0 .5rem;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:.7rem;font-weight:700;letter-spacing:.04em}
+  .capability-wide-copy h3{margin:.5rem 0 .5rem}
   .capability-wide-copy p{max-width:720px}
-  .capability-wide-copy .chips{margin-top:14px}
-  .capability-wide-action{display:grid;justify-items:end;gap:8px;text-align:right}
-  .capability-wide-action .btn{min-height:42px;padding:0 16px;font-size:.95rem}
+  .capability-wide-copy .chips{margin-top:1rem}
+  .capability-wide-action{display:grid;justify-items:end;gap:.5rem;text-align:right}
+  .capability-wide-action .btn{min-height:42px;padding:0 1rem;font-size:.95rem}
   .pay-note{max-width:220px;color:var(--muted);font-size:.84rem;line-height:1.4}
   @media (max-width:760px){
-    .capability.capability-wide{grid-template-columns:1fr;gap:14px}
+    .capability.capability-wide{grid-template-columns:1fr;gap:1rem}
     .capability-wide-action{justify-items:start;text-align:left}
     .pay-note{max-width:none}
   }
