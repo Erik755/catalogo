@@ -167,7 +167,6 @@ window.EXTREME_TRANSLATIONS = {
   "Consulta los proyectos de Extreme Solutions.": "Explore Extreme Solutions projects.",
   "← Todos los proyectos": "← All projects",
   "Tecnologías y capacidades": "Technologies and capabilities",
-  "Pagar un servicio acordado": "Pay for an agreed service",
   "Este proyecto no existe. Vuelve al catálogo para explorar las soluciones disponibles.": "This project does not exist. Return to the catalog to explore the available solutions.",
   "Servicio": "Service",
   "Integración de pasarelas de pago": "Payment gateway integration",

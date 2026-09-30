@@ -9,16 +9,12 @@ En el proyecto existente `extreme-solutions` de Vercel:
    la carpeta `extreme-solutions` y expone sus funciones mediante `api/`.
 3. Framework Preset: **Other**. Build Command y Output Directory se leen de
    `vercel.json`; no es necesario configurarlos manualmente.
-4. Variables de entorno: `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` y `SITE_URL`.
-   `SITE_URL` debe ser `https://extreme-solutions-eosin.vercel.app` para producción.
-   Usar claves de TEST hasta verificar Checkout y webhook. No poner claves en GitHub.
+4. No se requieren variables de entorno: el sitio ya no procesa pagos. La tarjeta
+   "Integración de pasarelas de pago" es solo de muestra y enlaza a https://stripe.com.
 5. Desplegar la rama que contenga esta actualización.
-6. Completar la configuración de eventos indicada en `STRIPE_SETUP.md` y probar
-   Checkout y entregas del webhook en Stripe TEST.
 
-El build genera las tarjetas desde `data/projects.json`, sin dependencias externas. Las funciones de `api/`
-requieren Vercel y las variables de Stripe. El webhook existente registra eventos;
-no implementa entrega automática de productos ni persistencia en una base de datos.
+El build genera las tarjetas desde `data/projects.json`, sin dependencias externas. La única función
+de `api/` es `project.js`, que genera las páginas `/proyecto/:slug`.
 
 ## Cambios de interfaz
 
@@ -27,12 +23,12 @@ no implementa entrega automática de productos ni persistencia en una base de da
 - Entradas suaves al recorrer secciones y transiciones de botones y tarjetas.
 - Respeto a movimiento reducido y contenido disponible sin JavaScript.
 - Imágenes recuperadas y recursos incrustados extraídos para permitir caché.
-- Contraste de la sección de pagos corregido.
+- Sección de pagos reducida a una tarjeta de servicio de muestra (sin cobro).
 
 ## Vista local
 
 Desde esta carpeta: `npm run build` y `npm run dev`.
-Abrir http://127.0.0.1:4174. Incluye páginas dinámicas; no ejecuta Stripe.
+Abrir http://127.0.0.1:4174. Incluye páginas dinámicas.
 
 ## Catálogo y preferencias
 
@@ -45,4 +41,4 @@ La búsqueda y categoría se guardan en la URL para compartirlas. Los favoritos 
 tema se guardan en el navegador, sin cuentas ni transferencia de datos personales.
 Si el almacenamiento está bloqueado, las funciones siguen disponibles durante la visita.
 
-Validación: `npm test`. Mantener las variables y el webhook de Stripe descritos arriba.
+Validación: `npm test`.

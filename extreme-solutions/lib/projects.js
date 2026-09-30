@@ -42,7 +42,7 @@ export function projectPage(project, requestedLanguage = 'es') {
     <main class="detail-page shell" id="contenido"><a href="/${languageQuery}#experiencia">${escape(tr('← Todos los proyectos'))}</a>
     <div class="detail-heading"><p class="eyebrow">${escape(tr(project?.type || 'Error 404'))}</p><h1>${escape(title)}</h1></div>
     ${project ? `<div class="detail-layout"><div><p class="lead">${escape(tr(project.description))}</p><h2>${escape(tr('Tecnologías y capacidades'))}</h2><div class="chips">${project.tags.map(tag => `<span class="chip">${escape(tr(tag))}</span>`).join('')}</div>
-    <div class="detail-actions">${project.links.map(link => `<a class="btn dark" href="${escape(link.url)}" target="_blank" rel="noreferrer">${escape(tr(link.label))}</a>`).join('')}<a class="btn light" href="/${languageQuery}#pagos">${escape(tr('Pagar un servicio acordado'))}</a></div></div>
+    <div class="detail-actions">${project.links.map(link => `<a class="btn dark" href="${escape(link.url)}" target="_blank" rel="noreferrer">${escape(tr(link.label))}</a>`).join('')}</div></div>
     <img class="detail-image" src="${escape(project.image)}" alt="${escape(tr(project.alt))}"></div>` : `<p>${escape(tr('Este proyecto no existe. Vuelve al catálogo para explorar las soluciones disponibles.'))}</p>`}
     </main><footer>© 2026 Extreme Solutions · Erik Sanchez</footer></body></html>`;
 }

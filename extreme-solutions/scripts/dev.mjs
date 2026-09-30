@@ -16,8 +16,8 @@ http.createServer(async (req, res) => {
     return projectHandler(req, res);
   }
   if (url.pathname.startsWith('/api/')) {
-    res.writeHead(503, { 'Content-Type': 'application/json' });
-    return res.end(JSON.stringify({ error: 'Stripe requiere Vercel y sus variables de entorno.' }));
+    res.writeHead(404);
+    return res.end('Not found');
   }
   try {
     if (!['GET', 'HEAD'].includes(req.method)) { res.writeHead(405); return res.end(); }

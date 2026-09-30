@@ -7,7 +7,7 @@ recordar preferencias. No es necesario migrar una landing a Next.js para obtener
 esas capacidades. Tampoco SSR garantiza por sí solo mejor rendimiento, y una base
 de datos en tiempo real no es un requisito de una interfaz dinámica.
 
-Se mantiene HTML/CSS/JavaScript más las funciones Node de Vercel, conservando Stripe.
+Se mantiene HTML/CSS/JavaScript más una función Node de Vercel para las páginas de proyecto.
 `data/projects.json` es la fuente de proyectos. El build genera las tarjetas con una
 plantilla compartida; `/proyecto/:slug` devuelve HTML desde una función de servidor.
 Las rutas inexistentes devuelven 404. El contenido funciona también sin JavaScript.
@@ -24,8 +24,8 @@ catálogo se limitan a HTTPS.
   con autenticación y reglas de acceso antes de implementarlo.
 - No hay cuentas de usuario ni favoritos entre dispositivos.
 - No se añade una API de IA: faltan un caso de uso, proveedor y límites de gasto.
-- Stripe mantiene su implementación existente y requiere pruebas en Vercel TEST;
-  el webhook todavía no entrega productos ni guarda compras en una base de datos.
+- La integración de Stripe (Checkout y webhook) se retiró el 29 de septiembre de 2026; la sección
+  de pagos es solo de muestra y no procesa cobros.
 - La skill instalada `skillspool-find-skill` descubre habilidades en Skills Pool;
   no proporciona permisos de GitHub ni migra aplicaciones. Su repositorio contiene
   documentación, no un instalador de código ejecutable. La habilidad que el PDF
