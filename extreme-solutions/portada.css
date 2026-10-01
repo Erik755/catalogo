@@ -170,3 +170,17 @@ html[data-theme="dark"] .tool-card[data-tilt]::before { background: radial-gradi
   html[data-theme="dark"] .tool-card { background: #152338; border-color: var(--line); }
   .hero-stage { opacity: .7; }
 }
+
+/* Catálogo de proyectos: todas las tarjetas con el mismo diseño (incluida la plataforma web)
+   y la misma altura; 8 tarjetas en 4×2 (escritorio), 2×4 (tablet y laptop estrecha) y 1 columna en móvil. */
+.projects { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 1200px) { .projects { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 680px) { .projects { grid-template-columns: 1fr; } }
+.project { display: flex; flex-direction: column; }
+.project-body { flex: 1 1 auto; display: flex; flex-direction: column; align-items: flex-start; }
+.project-body .chips { margin-bottom: .25rem; }
+.project-links { margin-top: auto; padding-top: 1rem; gap: .75rem; }
+.project-links .project-video { margin-top: 0; }
+@media (min-width: 1200px) { .project-body { padding: 1.25rem; } }
+/* El logotipo de la plataforma se muestra completo dentro del mismo marco que las capturas. */
+.project-media img.ltv-media { padding: 1.25rem; }
