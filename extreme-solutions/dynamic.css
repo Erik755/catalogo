@@ -140,3 +140,9 @@ html[data-theme="dark"] .chip { border-color: rgba(255, 255, 255, .14); backgrou
   .chip { border-color: currentColor; }
   .badge-list span { border-color: rgba(255, 255, 255, .7); }
 }
+/* Revelado al hacer scroll: esta clase solo la pone dynamic.js en elementos aún fuera de pantalla
+   (si el JS no carga, nada queda oculto). Mismo estado que el primer fotograma de la animación. */
+.reveal-pending { opacity: 0; transform: translateY(24px) scale(.985); }
+.reveal-pending:is(.capability, .tool-card, .project) { transform: perspective(900px) translateY(36px) rotateX(9deg) scale(.96); }
+@media (prefers-reduced-motion: reduce) { .reveal-pending { opacity: 1 !important; transform: none !important; } }
+@media print { .reveal-pending { opacity: 1 !important; transform: none !important; } }

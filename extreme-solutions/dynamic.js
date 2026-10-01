@@ -85,20 +85,35 @@ addEventListener('scroll', () => {
 addEventListener('resize', updateNavigation);
 updateNavigation();
 
-// Animate on entry without ever hiding content in CSS (including failed JS loads).
-if ('IntersectionObserver' in window) {
-  // Revelado suave y escalonado entre hermanos (solo opacity/transform; el contenido nunca se oculta en CSS).
-  const observer = new IntersectionObserver(entries => {
-    entries.filter(entry => entry.isIntersecting).forEach(({ target }, order) => {
-      if (!reduced.matches && target.animate) target.animate(
-        [{ opacity: 0, transform: 'translateY(24px) scale(.985)' }, { opacity: 1, transform: 'none' }],
-        { duration: 650, delay: Math.min(order, 5) * 70, easing: 'cubic-bezier(.23, 1, .32, 1)', fill: 'backwards' }
-      );
-      observer.unobserve(target);
+// Revelado al hacer scroll (mejora progresiva): solo el JS oculta, y solo lo que aún está por debajo
+// de la pantalla; si el JS no carga o hay "reducir movimiento", todo queda visible desde el inicio.
+if ('IntersectionObserver' in window && !reduced.matches) {
+  const cards = '.capability, .tool-card, .project';
+  const targets = [...document.querySelectorAll(`.section-head, ${cards}, .method-step, .metric, .play-card, .badge-list span`)];
+  const cardFrames = [{ opacity: 0, transform: 'perspective(900px) translateY(36px) rotateX(9deg) scale(.96)' }, { opacity: 1, transform: 'none' }];
+  const softFrames = [{ opacity: 0, transform: 'translateY(24px) scale(.985)' }, { opacity: 1, transform: 'none' }];
+  const reveal = (target, order) => {
+    if (target.animate) target.animate(target.matches(cards) ? cardFrames : softFrames, {
+      duration: target.matches(cards) ? 760 : 650, delay: Math.min(order, 5) * 90,
+      easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards'
     });
-  }, { threshold: .08 });
-  document.querySelectorAll('.section-head, .capability, .tool-card, .method-step, .project, .metric, .play-card, .image-panel, .badge-list span').forEach(el => observer.observe(el));
+    target.classList.remove('reveal-pending');
+  };
+  // Se dispara cuando el elemento ya entró un 15 % en la pantalla, para que la entrada se vea.
+  const observer = new IntersectionObserver(entries => {
+    entries.filter(entry => entry.isIntersecting)
+      .sort((x, y) => (x.boundingClientRect.top - y.boundingClientRect.top) || (x.boundingClientRect.left - y.boundingClientRect.left))
+      .forEach(({ target }, order) => { observer.unobserve(target); reveal(target, order); });
+  }, { threshold: .2, rootMargin: '0px 0px -15% 0px' });
+  targets.forEach(target => {
+    if (target.getBoundingClientRect().top < innerHeight) return; // ya visible al cargar: sin animación
+    target.classList.add('reveal-pending');
+    observer.observe(target);
+  });
   reduced.addEventListener('change', () => {
-    if (reduced.matches) document.getAnimations().forEach(animation => animation.cancel());
+    if (!reduced.matches) return;
+    observer.disconnect();
+    document.querySelectorAll('.reveal-pending').forEach(target => target.classList.remove('reveal-pending'));
+    document.getAnimations().forEach(animation => animation.cancel());
   });
 }

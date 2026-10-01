@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="/base.css">
   <link rel="stylesheet" href="dynamic.css">
   <link rel="stylesheet" href="/portada.css">
+  <link rel="preload" as="image" href="/assets/hero-3d-fallback.webp" type="image/webp" fetchpriority="high">
   <script src="/i18n-data.js"></script>
   <script src="/i18n.js"></script>
   <script src="/preferences.js"></script>
@@ -21,7 +22,7 @@
   <script src="/catalog.js" defer></script>
   <script src="/linkedin-consent.js" defer></script>
   <script src="/tilt.js" defer></script>
-  <script src="/hero3d-loader.js" defer></script>
+  <script src="/hero3d-loader.js" async></script>
 </head>
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -307,11 +308,6 @@
               <a class="btn light" href="/privacidad">Privacidad</a>
             </div>
           </div>
-        </div>
-
-        <div class="image-grid" aria-label="Visuales del perfil de desarrollador">
-          <div class="image-panel"><img loading="lazy" decoding="async" src="assets/embedded-11.webp" alt="Encabezado profesional para perfil de desarrollador"></div>
-          <div class="image-panel"><img loading="lazy" decoding="async" src="assets/embedded-12.jpeg" alt="Imagen social del portafolio de Erik Sanchez"></div>
         </div>
       </div>
     </section>

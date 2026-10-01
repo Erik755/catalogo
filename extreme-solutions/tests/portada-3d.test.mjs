@@ -13,8 +13,8 @@ test('la portada 3D tiene respaldo estático sin WebGL, sin JS y con reducir mov
   const css = read('portada.css');
   assert.match(css, /\.hero-stage::before\s*\{[^}]*url\("\/assets\/hero-3d-fallback\.webp"\)/);
   assert.ok(existsSync(new URL('assets/hero-3d-fallback.webp', site)), 'falta la imagen de respaldo');
-  // El canvas solo se muestra cuando la escena ya dibujó su primer fotograma.
-  assert.match(css, /\.hero-canvas\s*\{[^}]*opacity:\s*0/);
+  // El canvas solo se muestra (fundido) cuando la escena ya dibuja con fluidez; antes queda imperceptible (≤ .01).
+  assert.match(css, /\.hero-canvas\s*\{[^}]*opacity:\s*(?:0|\.0[01])\s*;/);
   assert.match(css, /\.hero-stage\.is-live \.hero-canvas\s*\{\s*opacity:\s*1/);
   const loader = read('hero3d-loader.js');
   for (const reason of ['reduced-motion', 'save-data', 'no-webgl', 'error']) assert.ok(loader.includes(`'${reason}'`), `falta el respaldo ${reason}`);

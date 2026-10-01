@@ -13,18 +13,16 @@ import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js';
 const BRAND = { blue: 0x2563eb, sky: 0x60a5fa, cyan: 0x22d3ee, teal: 0x0e9bb8, green: 0x10b981, amber: 0xf59e0b };
 const damp = (current, target, lambda, dt) => MathUtils.lerp(current, target, 1 - Math.exp(-lambda * dt));
 
-function rendererInfo(renderer) {
-  const gl = renderer.getContext();
+function rendererInfo(gl) {
   let name = '';
   try { const ext = gl.getExtension('WEBGL_debug_renderer_info'); name = ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER); } catch { /* opcional */ }
   return String(name || '');
 }
 
-const isSoftware = renderer => /swiftshader|llvmpipe|softpipe|software|basic render/i.test(rendererInfo(renderer));
+const isSoftware = gl => /swiftshader|llvmpipe|softpipe|software|basic render/i.test(rendererInfo(gl));
 
 // Calidad según dispositivo: móviles, poca memoria o GPU por software → calidad baja.
-function pickTier(renderer) {
-  const software = isSoftware(renderer);
+function pickTier(software) {
   const coarse = matchMedia('(pointer: coarse)').matches;
   const small = Math.min(screen.width, screen.height) < 768;
   const lowMemory = (navigator.deviceMemory || 8) <= 4;
@@ -247,16 +245,24 @@ function makeRenderer(canvas, tier, extra = {}) {
 
 // Monta la escena en .hero-stage. Devuelve una función para desmontarla.
 export function mount(stage) {
+  performance.mark?.('hero3d:mount');
   const canvas = stage.querySelector('canvas');
   const hero = stage.closest('.hero') || document.body;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
 
-  let renderer = makeRenderer(canvas, 'high');
-  let tier = pickTier(renderer);
+  // La calidad se decide con un contexto de sondeo desechable, para crear el renderer una sola vez
+  // (crear y destruir un contexto en el canvas visible cuesta tiempo y puede trabar el primer cuadro).
+  let software = false;
+  try {
+    const probe = document.createElement('canvas').getContext('webgl2');
+    software = probe ? isSoftware(probe) : false;
+    probe?.getExtension('WEBGL_lose_context')?.loseContext();
+  } catch { /* sin sondeo: calidad por dispositivo */ }
+  let tier = pickTier(software);
   // Escala de resolución dinámica: con GPU por software se empieza más bajo y baja si faltan FPS.
-  let resolution = isSoftware(renderer) ? 0.7 : 1;
-  if (tier !== 'high') { renderer.dispose(); renderer = makeRenderer(canvas, tier); }
+  let resolution = software ? 0.7 : 1;
+  const renderer = makeRenderer(canvas, tier);
   renderer.transmissionResolutionScale = tier === 'high' ? 1 : 0.6;
   let world = buildScene(renderer, tier);
   const camera = new PerspectiveCamera(34, 1, 0.1, 60);
@@ -320,13 +326,20 @@ export function mount(stage) {
   }
 
   // Bucle de render: se pausa cuando la portada no se ve o la pestaña está oculta.
-  let visible = true, raf = 0, last = 0, time = 0, firstFrame = true;
+  // La escena se muestra (fundido CSS) cuando ya hay cuadros listos y la intro está en marcha,
+  // así nunca se ve un primer cuadro estático ni el tirón de la compilación de shaders.
+  let visible = true, raf = 0, last = 0, time = 0, renderedFrames = 0, smoothFrames = 0, shown = false, ready = false;
   let sampleTime = 0, sampleFrames = 0;
+  const INTRO = 1.6;
+  const easeOut = t => 1 - Math.pow(1 - MathUtils.clamp(t, 0, 1), 3);
   function frame(now) {
     raf = requestAnimationFrame(frame);
-    const dt = Math.min(0.05, last ? (now - last) / 1000 : 0.016);
+    const rawDt = last ? (now - last) / 1000 : 0;
+    const dt = Math.min(0.05, rawDt || 0.016);
     last = now;
     time += dt;
+    // Intro: los nodos llegan desde fuera y el conjunto gira hasta su sitio.
+    const intro = easeOut(time / INTRO);
 
     input.spinVelocity = drag ? input.spinVelocity : damp(input.spinVelocity, 0, 2.5, dt);
     if (!drag) input.spin += input.spinVelocity * dt;
@@ -337,16 +350,25 @@ export function mount(stage) {
     state.scroll = damp(state.scroll, input.scroll, 6, dt);
 
     const s = state.scroll;
-    world.root.rotation.set(state.rx + s * 0.45, state.ry + time * 0.06 + s * 1.4, 0);
+    world.root.rotation.set(state.rx + s * 0.45 + (1 - intro) * 0.35, state.ry + time * 0.06 + s * 1.4 - (1 - intro) * 1.1, 0);
     world.core.rotation.set(time * 0.12, time * 0.18, 0);
-    world.blob.scale.setScalar(1 - s * 0.12);
-    world.update(time, 1 + s * 0.85);
+    world.blob.scale.setScalar((1 - s * 0.12) * (0.8 + 0.2 * intro));
+    world.update(time, 1 + s * 0.85 + (1 - intro) * 1.4);
     const fit = camera.aspect < 1 ? 1 / camera.aspect : 1;
     camera.position.set(state.camX, state.camY, (9.2 + s * 2.6) * Math.min(fit, 1.6));
     camera.lookAt(0, 0, 0);
     renderer.render(world.scene, camera);
 
-    if (firstFrame) { firstFrame = false; stage.classList.add('is-live'); stage.dataset.state = 'live'; }
+    renderedFrames++;
+    // Se muestra cuando la cadena de cuadros ya fluye (el primer compuesto del canvas, que puede tardar,
+    // ocurre aún invisible): 3 cuadros seguidos fluidos o, como tope, 90 cuadros.
+    smoothFrames = rawDt > 0 && rawDt < 0.1 ? smoothFrames + 1 : 0;
+    if (!shown && (smoothFrames >= 3 || renderedFrames >= 90)) {
+      shown = true;
+      performance.mark?.('hero3d:live');
+      stage.classList.add('is-live');
+      stage.dataset.state = 'live';
+    }
     // Calidad adaptativa: si el promedio baja de ~30 FPS, primero quita la transmisión (pase extra)
     // y después reduce la resolución por pasos hasta la mitad.
     sampleTime += dt; sampleFrames++;
@@ -367,7 +389,7 @@ export function mount(stage) {
       sampleTime = 0; sampleFrames = 0;
     }
   }
-  const start = () => { if (!raf && visible && !document.hidden) { last = 0; raf = requestAnimationFrame(frame); } };
+  const start = () => { if (ready && !raf && visible && !document.hidden) { last = 0; raf = requestAnimationFrame(frame); } };
   const stop = () => { cancelAnimationFrame(raf); raf = 0; };
   const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; visible ? start() : stop(); });
   observer.observe(stage);
@@ -395,7 +417,15 @@ export function mount(stage) {
   // Si el usuario activa "reducir movimiento", se vuelve a la imagen estática.
   const onReduced = () => { if (reduced.matches) unmount(); };
   reduced.addEventListener('change', onReduced);
-  start();
+  // Precompila los shaders en paralelo (KHR_parallel_shader_compile, habitual con GPU real) antes del
+  // primer cuadro; sin esa extensión se compilan en el primer render, con la escena aún invisible.
+  const warm = renderer.extensions.has('KHR_parallel_shader_compile') ? renderer.compileAsync(world.scene, camera) : Promise.resolve();
+  warm.catch(() => {}).then(() => {
+    performance.mark?.('hero3d:compiled');
+    if (stage.dataset.state === 'fallback') return;
+    ready = true;
+    start();
+  });
   return unmount;
 }
 
