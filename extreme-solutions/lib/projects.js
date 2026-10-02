@@ -17,6 +17,38 @@ for (const project of projects) {
   if (!/^\/assets\/[a-zA-Z0-9.-]+$/.test(project.image) && !project.image.startsWith('https://')) throw new Error('Invalid image');
   for (const link of project.links) if (new URL(link.url).protocol !== 'https:') throw new Error('Unsafe project link');
   if (project.privacy !== undefined && !/^[a-z0-9-]+$/.test(project.privacy)) throw new Error('Invalid privacy anchor');
+  const cert = project.certification;
+  if (cert !== undefined && (!/^[a-f0-9]{16}$/.test(cert.id) || !/^[a-f0-9]{64}$/.test(cert.codeHash) || !/^[a-f0-9]{64}$/.test(cert.signature)
+    || !Number.isInteger(cert.score) || cert.score < 0 || cert.score > 100 || new URL(cert.repositoryUrl).protocol !== 'https:' || !Array.isArray(cert.findings))) throw new Error('Invalid certification');
+}
+
+// Certificado de verificación independiente (p. ej. M8ven), renderizado en el servidor: HTML y SVG estáticos, sin scripts.
+function certificate(cert, tr) {
+  const issuer = escape(cert.issuer);
+  const title = tr(`Verificado por ${cert.issuer}`);
+  return `<section class="cert" aria-labelledby="cert-title">
+    <div class="cert-head">
+      <svg class="cert-seal" viewBox="0 0 120 120" role="img" aria-label="${escape(tr(`Sello: Verificado por ${cert.issuer}`))}">
+        <circle cx="60" cy="60" r="56" fill="none" stroke="#67e8f9" stroke-width="2" stroke-dasharray="3 5"/>
+        <circle cx="60" cy="60" r="47" fill="#0e9bb8" fill-opacity=".14" stroke="#38bdf8" stroke-width="3"/>
+        <path d="M60 30l22 8v17c0 15-9 26-22 31-13-5-22-16-22-31V38z" fill="#0b1220" stroke="#38bdf8" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M50 58l7 7 14-15" fill="none" stroke="#67e8f9" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="60" y="101" text-anchor="middle" font-size="10" font-weight="800" letter-spacing="2" fill="#67e8f9" font-family="system-ui, sans-serif">${issuer.toUpperCase()}</text>
+      </svg>
+      <div class="cert-title"><p class="eyebrow">${escape(tr('Certificación independiente'))}</p><h2 id="cert-title">${escape(title)}</h2>
+      <p class="cert-statement">${escape(tr(`Firmado criptográficamente por ${cert.issuer}; el hash vincula la puntuación con esta versión exacta del código.`))}</p></div>
+      <div class="cert-score"><span class="cert-score-value">${cert.score}</span><span class="cert-score-max">/100</span><span class="cert-score-label">${escape(tr('Puntuación de confianza'))}</span></div>
+    </div>
+    <dl class="cert-fields">
+      <div><dt>${escape(tr('ID de verificación'))}</dt><dd><code>${escape(cert.id)}</code></dd></div>
+      <div><dt>${escape(tr('Repositorio'))}</dt><dd><a href="${escape(cert.repositoryUrl)}" target="_blank" rel="noopener noreferrer">${escape(cert.repository)}</a></dd></div>
+      <div><dt>${escape(tr('Verificado'))}</dt><dd><time datetime="${escape(cert.verifiedAt)}">${escape(tr(cert.verified))}</time></dd></div>
+      <div class="cert-wide"><dt>${escape(tr('Hash del código (SHA-256)'))}</dt><dd><code class="cert-hash">${escape(cert.codeHash)}</code></dd></div>
+      <div class="cert-wide"><dt>${escape(tr('Firma HMAC'))}</dt><dd><code class="cert-hash">${escape(cert.signature)}</code></dd></div>
+    </dl>
+    <h3>${escape(tr('Hallazgos clave'))}</h3>
+    <ul class="cert-findings">${cert.findings.map(item => `<li>${escape(tr(item))}</li>`).join('')}</ul>
+  </section>`;
 }
 
 export function card(project) {
@@ -44,6 +76,6 @@ export function projectPage(project, requestedLanguage = 'es') {
     <div class="detail-heading"><p class="eyebrow">${escape(tr(project?.type || 'Error 404'))}</p><h1>${escape(title)}</h1></div>
     ${project ? `<div class="detail-layout"><div><p class="lead">${escape(tr(project.description))}</p><h2>${escape(tr('Tecnologías y capacidades'))}</h2><div class="chips">${project.tags.map(tag => `<span class="chip">${escape(tr(tag))}</span>`).join('')}</div>
     <div class="detail-actions">${project.links.map(link => `<a class="btn dark" href="${escape(link.url)}" target="_blank" rel="noreferrer">${escape(tr(link.label))}</a>`).join('')}${project.privacy ? `<a class="btn light" href="/privacidad${languageQuery}#${project.privacy}">${escape(tr('Política de privacidad'))}</a>` : ''}</div></div>
-    <img class="detail-image" src="${escape(project.image)}" alt="${escape(tr(project.alt))}"></div>` : `<p>${escape(tr('Este proyecto no existe. Vuelve al catálogo para explorar las soluciones disponibles.'))}</p>`}
+    <img class="detail-image" src="${escape(project.image)}" alt="${escape(tr(project.alt))}"></div>${project.certification ? certificate(project.certification, tr) : ''}` : `<p>${escape(tr('Este proyecto no existe. Vuelve al catálogo para explorar las soluciones disponibles.'))}</p>`}
     </main><footer><span>© 2026 Extreme Solutions · Erik Sanchez</span> <span class="footer-links"><a href="/privacidad${languageQuery}">${escape(tr('Privacidad'))}</a><a href="/privacidad${languageQuery}#aviso-legal">${escape(tr('Aviso legal'))}</a></span> <span class="footer-legal">${escape(tr('Sitio informativo, sin garantías. Las marcas de terceros pertenecen a sus titulares.'))}</span></footer></body></html>`;
 }

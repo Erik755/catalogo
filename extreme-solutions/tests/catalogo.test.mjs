@@ -27,7 +27,25 @@ test('MCP Dual LLM Guard: tarjeta de IA con imagen local, enlaces a GitHub y M8v
   assert.ok(guard.includes('src="/assets/mcp-dual-llm-guard.svg"'));
   assert.ok(readFileSync(new URL('../assets/mcp-dual-llm-guard.svg', import.meta.url), 'utf8').startsWith('<svg'));
   const project = JSON.parse(readFileSync(new URL('../data/projects.json', import.meta.url), 'utf8')).find(item => item.id === 'mcp-dual-llm-guard');
-  assert.deepEqual(project.links.map(link => link.url), ['https://github.com/Erik755/mcp-dual-llm-guard', 'https://m8ven.ai/verified/verify?id=a5dad922de9566da']);
+  assert.deepEqual(project.links.map(link => link.url), ['https://github.com/Erik755/mcp-dual-llm-guard', 'https://m8ven.ai/mcp/erik755-mcp-dual-llm-guard-m0uqf4']);
+  assert.ok(guard.includes('<span class="chip">Verificado por M8ven · 75/100</span>'));
   const translations = JSON.parse(readFileSync(new URL('../data/translations.json', import.meta.url), 'utf8'));
-  for (const text of [project.type, project.description, project.alt, 'Seguridad de IA', ...project.links.map(link => link.label)]) assert.ok(translations[text], text);
+  for (const text of [project.type, project.description, project.alt, 'Verificado por M8ven · 75/100', ...project.links.map(link => link.label), project.certification.verified, ...project.certification.findings]) assert.ok(translations[text], text);
+});
+
+test('MCP Dual LLM Guard: el certificado de M8ven se muestra en la página de detalle (ES y EN) sin scripts', async () => {
+  const { projects, projectPage } = await import('../lib/projects.js');
+  const project = projects.find(item => item.id === 'mcp-dual-llm-guard');
+  const es = projectPage(project, 'es');
+  const en = projectPage(project, 'en');
+  const facts = ['75', '/100', 'a5dad922de9566da', 'Erik755/mcp-dual-llm-guard', 'f39121b5de101ecd20cf6b2607f96678106031052aaac716a3a54dea94b0c504', 'e0477484f17a44ba1bc7504df4d3342955b0cee6342b1bbd22e8b34418ebc830'];
+  for (const html of [es, en]) {
+    assert.ok(html.includes('class="cert"'));
+    for (const fact of facts) assert.ok(html.includes(fact), fact);
+    assert.ok(!html.includes('/verified/verify'));
+    assert.ok(!/<script>(?!<\/script>)|\sstyle="|\son[a-z]+="/i.test(html.split('<body')[1]), 'sin scripts, estilos ni manejadores en línea (CSP)');
+  }
+  for (const part of ['Verificado por M8ven', 'Puntuación de confianza', '1 oct 2026, 8:12 p. m. (CST)', 'Firmado criptográficamente por M8ven; el hash vincula la puntuación con esta versión exacta del código.', 'Análisis estático: sin exfiltración de credenciales, sin acceso a archivos sensibles, sin ofuscación', 'Código abierto con licencia y README', 'Ver ficha en M8ven →']) assert.ok(es.includes(part), part);
+  for (const part of ['Verified by M8ven', 'Trust Score', 'Oct 1, 2026, 8:12 PM (CST)', 'Cryptographically signed by M8ven; the hash binds the score to this exact code version.', 'Static analysis: no credential exfiltration, no sensitive file access, no obfuscation', 'Open source with license and README', 'View M8ven report →', 'Verification ID', 'Code hash (SHA-256)', 'HMAC signature', 'Key findings']) assert.ok(en.includes(part), part);
+  assert.ok(!projectPage(projects.find(item => item.id === 'ltv-maestro')).includes('class="cert"'));
 });

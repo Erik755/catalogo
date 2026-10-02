@@ -170,15 +170,14 @@
     "category": "tools",
     "title": "MCP Dual LLM Guard",
     "type": "Seguridad de IA · Agentes LLM",
-    "description": "Desarrollamos un middleware en Python con el patrón Dual LLM y memoria simbólica: un monitor de referencia que neutraliza por diseño la inyección indirecta de prompts y el envenenamiento de herramientas MCP. Incluye 225 pruebas, ~99.9 % de cobertura, licencia MIT y verificación independiente de M8ven (75/100).",
+    "description": "Desarrollamos un middleware en Python que neutraliza por diseño la inyección indirecta de prompts y el envenenamiento de herramientas MCP, respaldado por 225 pruebas.",
     "image": "/assets/mcp-dual-llm-guard.svg",
     "alt": "Diagrama de MCP Dual LLM Guard: un monitor de referencia separa la entrada no confiable de un LLM privilegiado y un LLM en cuarentena",
     "tags": [
       "Python",
+      "Verificado por M8ven · 75/100",
       "MCP",
-      "Seguridad de IA",
-      "OWASP LLM01 · LLM06 · LLM03",
-      "mypy --strict · ruff"
+      "OWASP LLM01 · LLM06 · LLM03"
     ],
     "links": [
       {
@@ -186,10 +185,25 @@
         "label": "Ver en GitHub →"
       },
       {
-        "url": "https://m8ven.ai/verified/verify?id=a5dad922de9566da",
-        "label": "Ver verificación M8ven →"
+        "url": "https://m8ven.ai/mcp/erik755-mcp-dual-llm-guard-m0uqf4",
+        "label": "Ver ficha en M8ven →"
       }
     ],
+    "certification": {
+      "issuer": "M8ven",
+      "score": 75,
+      "id": "a5dad922de9566da",
+      "repository": "Erik755/mcp-dual-llm-guard",
+      "repositoryUrl": "https://github.com/Erik755/mcp-dual-llm-guard",
+      "verifiedAt": "2026-10-01T20:12-06:00",
+      "verified": "1 oct 2026, 8:12 p. m. (CST)",
+      "codeHash": "f39121b5de101ecd20cf6b2607f96678106031052aaac716a3a54dea94b0c504",
+      "signature": "e0477484f17a44ba1bc7504df4d3342955b0cee6342b1bbd22e8b34418ebc830",
+      "findings": [
+        "Análisis estático: sin exfiltración de credenciales, sin acceso a archivos sensibles, sin ofuscación",
+        "Código abierto con licencia y README"
+      ]
+    },
     "featured": false
   }
 ]
