@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="index,follow">
-  <meta name="description" content="Portafolio de Extreme Solutions, equipo de desarrollo de productos móviles y web en México: Android, React, Vite, Base44, automatización, reportes, evidencia visual y publicación digital.">
+  <meta name="description" content="Portafolio de Extreme Solutions, equipo de desarrollo de productos móviles y web en México: Android, Kotlin, React, Vite, Base44, Python, seguridad de agentes de IA con MCP, automatización, reportes, evidencia visual y publicación digital.">
   <meta property="og:title" content="Extreme Solutions | Desarrollo Android independiente">
   <meta property="og:description" content="Desarrollamos productos móviles y web para productividad en campo, operación, reportes y flujos digitales listos para trabajar.">
   <meta property="og:image" content="https://extreme-solutions-eosin.vercel.app/assets/embedded-2.webp">
@@ -60,6 +60,11 @@
         <a class="btn primary" href="#experiencia">Conocer experiencia</a>
         <a class="btn" href="#google-play">Ver marca</a>
       </div>
+      <div class="hero-featured" aria-label="Productos destacados">
+        <span class="hero-featured-label">Destacados</span>
+        <a class="hero-feature" href="/proyecto/mcp-dual-llm-guard"><strong>MCP Dual LLM Guard</strong><span>Seguridad para agentes de IA</span></a>
+        <a class="hero-feature" href="/proyecto/lentes"><strong>Lentes</strong><span>Cámara por carpetas para Android</span></a>
+      </div>
     </div>
   </header>
 
@@ -93,7 +98,7 @@
           <article class="capability" data-tilt>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v3"></path><path d="M12 18v3"></path><path d="M3 12h3"></path><path d="M18 12h3"></path><path d="m5.6 5.6 2.1 2.1"></path><path d="m16.3 16.3 2.1 2.1"></path><path d="m18.4 5.6-2.1 2.1"></path><path d="m7.7 16.3-2.1 2.1"></path><circle cx="12" cy="12" r="4"></circle></svg>
             <h3>IA aplicada</h3>
-            <p>Integramos asistentes, generación multimedia y flujos inteligentes para reducir pasos repetitivos.</p>
+            <p>Integramos LLM, asistentes y agentes con MCP protegidos contra la inyección de prompts, además de generación multimedia y flujos inteligentes.</p>
           </article>
         </div>
       </div>
@@ -111,7 +116,7 @@
         <div class="metrics">
           <div class="metric"><strong>Android y web</strong><span>Aplicaciones móviles y plataformas operativas publicadas y probadas.</span></div>
           <div class="metric"><strong>Datos y archivos</strong><span>Información local, hojas de cálculo, PDF, Excel e importación de archivos.</span></div>
-          <div class="metric"><strong>IA aplicada</strong><span>Asistentes, generación multimedia y flujos inteligentes.</span></div>
+          <div class="metric"><strong>IA aplicada</strong><span>Agentes LLM seguros con MCP, asistentes, generación multimedia y flujos inteligentes.</span></div>
           <div class="metric"><strong>Entrega real</strong><span>Pruebas en dispositivo, despliegues y publicación en tiendas.</span></div>
         </div>
       </div>
@@ -130,7 +135,7 @@
           <article class="tool-card" data-tilt>
             <div class="tool-kicker">Frontend móvil</div>
             <h3>Android nativo</h3>
-            <p>Java, Android SDK y Gradle para interfaces, captura en cámara y galería, firmas, permisos, archivos y operación sin depender de una computadora.</p>
+            <p>Kotlin, Java, Android SDK y Gradle para interfaces, captura en cámara y galería, firmas, permisos, archivos, tareas en segundo plano con WorkManager y operación sin depender de una computadora.</p>
           </article>
           <article class="tool-card" data-tilt>
             <div class="tool-kicker">Frontend web</div>
@@ -140,7 +145,7 @@
           <article class="tool-card" data-tilt>
             <div class="tool-kicker">Backend y datos</div>
             <h3>Información que permanece útil</h3>
-            <p>Base44, almacenamiento local con SharedPreferences y Google Sheets para conservar, organizar y consultar información de operación.</p>
+            <p>Base44, almacenamiento local con SharedPreferences, Google Sheets y Google Photos Library API con OAuth (Google Identity Services) para conservar, respaldar, organizar y consultar información.</p>
           </article>
           <article class="tool-card" data-tilt>
             <div class="tool-kicker">Documentos y medios</div>
@@ -150,7 +155,12 @@
           <article class="tool-card" data-tilt>
             <div class="tool-kicker">Calidad y despliegue</div>
             <h3>Del repositorio al usuario</h3>
-            <p>GitHub, Vercel, Android Studio, pruebas en dispositivo y Google Play Console para construir, validar, publicar y mejorar cada producto.</p>
+            <p>GitHub, Vercel, Android Studio, pruebas en dispositivo, Google Play Console con pruebas cerradas y Google Play Billing para construir, validar, publicar, monetizar y mejorar cada producto.</p>
+          </article>
+          <article class="tool-card" data-tilt>
+            <div class="tool-kicker">IA y seguridad</div>
+            <h3>Agentes LLM protegidos</h3>
+            <p>Python, MCP (Model Context Protocol) e integración de LLM con el patrón Dual LLM: memoria simbólica, monitor de referencia y herramientas fijadas con SHA-256 contra la inyección de prompts y el envenenamiento de herramientas.</p>
           </article>
         </div>
       </div>
@@ -219,7 +229,21 @@
         <p class="catalog-empty" hidden>No encontramos proyectos con estos filtros. <button type="button" id="clear-filters">Limpiar filtros</button></p>
         <p class="filter-count" role="status" aria-live="polite" hidden></p>
         <!-- PROJECTS_START -->
-<div class="projects" id="project-grid"><article class="project" data-category="android" data-project-id="reporte-servicio-pro">
+<div class="projects" id="project-grid"><article class="project project-featured" data-category="tools" data-project-id="mcp-dual-llm-guard">
+    <div class="project-media"><span class="featured-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg><span>Destacado</span></span><img loading="lazy" decoding="async" src="/assets/mcp-dual-llm-guard.svg" alt="Diagrama de MCP Dual LLM Guard: un monitor de referencia separa la entrada no confiable de un LLM privilegiado y un LLM en cuarentena"></div>
+    <div class="project-body"><span class="project-type">Seguridad de IA · Agentes LLM</span>
+    <h3>MCP Dual LLM Guard</h3><p>Desarrollamos un middleware en Python que neutraliza por diseño la inyección indirecta de prompts y el envenenamiento de herramientas MCP: un LLM privilegiado planifica solo con punteros, un LLM en cuarentena lee los datos sin acceso a herramientas y un monitor de referencia decide qué datos llegan a cada herramienta. Respaldado por 224 pruebas.</p>
+    <div class="chips"><span class="chip">Python</span><span class="chip">MCP</span><span class="chip">Patrón Dual LLM</span><span class="chip">Verificado por M8ven · 75/100</span><span class="chip">OWASP LLM01 · LLM06 · LLM03</span></div>
+    <div class="project-links"><a class="project-video" href="/proyecto/mcp-dual-llm-guard">Explorar proyecto →</a>
+    <button class="save-project" type="button" data-save="mcp-dual-llm-guard" aria-pressed="false" aria-label="Guardar MCP Dual LLM Guard" hidden>Guardar</button></div></div></article>
+<article class="project project-featured" data-category="android" data-project-id="lentes">
+    <div class="project-media"><span class="featured-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg><span>Destacado</span></span><img loading="lazy" decoding="async" src="/assets/lentes-feature.png" alt="Lentes, aplicación Android para organizar fotos y videos por carpetas"></div>
+    <div class="project-body"><span class="project-type">Producto Android · Prueba cerrada en Google Play</span>
+    <h3>Lentes: cámara por carpetas</h3><p>Convertimos la cámara nativa en un flujo organizado por contexto: cada lente separa fotos y videos en su propia carpeta y puede respaldarlos en un álbum equivalente de Google Fotos.</p>
+    <div class="chips"><span class="chip">Kotlin</span><span class="chip">Google Photos Library API</span><span class="chip">OAuth · Google Identity Services</span><span class="chip">WorkManager</span><span class="chip">Google Play Billing</span></div>
+    <div class="project-links"><a class="project-video" href="/proyecto/lentes">Explorar proyecto →</a>
+    <button class="save-project" type="button" data-save="lentes" aria-pressed="false" aria-label="Guardar Lentes: cámara por carpetas" hidden>Guardar</button></div></div></article>
+<article class="project" data-category="android" data-project-id="reporte-servicio-pro">
     <div class="project-media"><img loading="lazy" decoding="async" src="/assets/embedded-6.webp" alt="Captura de Reporte Servicio Pro en Android"></div>
     <div class="project-body"><span class="project-type">Producto Android</span>
     <h3>Reporte Servicio Pro</h3><p>Desarrollamos captura de servicios, clientes, evidencias, firmas, historial y documentos PDF/Excel desde el celular.</p>
@@ -233,13 +257,6 @@
     <div class="chips"><span class="chip">Control financiero</span><span class="chip">Acceso rápido</span><span class="chip">Google Sheets</span></div>
     <div class="project-links"><a class="project-video" href="/proyecto/control-gastos-pro">Explorar proyecto →</a>
     <button class="save-project" type="button" data-save="control-gastos-pro" aria-pressed="false" aria-label="Guardar Control de Gastos Pro" hidden>Guardar</button></div></div></article>
-<article class="project" data-category="android" data-project-id="lentes">
-    <div class="project-media"><img loading="lazy" decoding="async" src="/assets/lentes-feature.png" alt="Lentes, aplicación Android para organizar fotos y videos por carpetas"></div>
-    <div class="project-body"><span class="project-type">Producto Android · Google Play</span>
-    <h3>Lentes: cámara por carpetas</h3><p>Convertimos la cámara nativa en un flujo organizado por contexto: cada lente separa fotos y videos en su propia carpeta y puede respaldarlos en un álbum equivalente de Google Fotos.</p>
-    <div class="chips"><span class="chip">Kotlin</span><span class="chip">Android</span><span class="chip">Google Fotos</span><span class="chip">Play Billing</span></div>
-    <div class="project-links"><a class="project-video" href="/proyecto/lentes">Explorar proyecto →</a>
-    <button class="save-project" type="button" data-save="lentes" aria-pressed="false" aria-label="Guardar Lentes: cámara por carpetas" hidden>Guardar</button></div></div></article>
 <article class="project" data-category="web" data-project-id="museum-of-you">
     <div class="project-media"><img loading="lazy" decoding="async" src="/assets/museum-of-you.png" alt="Interfaz de The Museum of You para convertir objetos cotidianos en piezas de museo con IA"></div>
     <div class="project-body"><span class="project-type">PWA · Experiencia creativa con IA</span>
@@ -247,6 +264,13 @@
     <div class="chips"><span class="chip">PWA</span><span class="chip">IA multimodal</span><span class="chip">Privacidad local</span><span class="chip">Cloudflare</span></div>
     <div class="project-links"><a class="project-video" href="/proyecto/museum-of-you">Explorar proyecto →</a>
     <button class="save-project" type="button" data-save="museum-of-you" aria-pressed="false" aria-label="Guardar The Museum of You" hidden>Guardar</button></div></div></article>
+<article class="project" data-category="web" data-project-id="ltv-maestro">
+    <div class="project-media"><img loading="lazy" decoding="async" src="https://ltv-maestro.vercel.app/logo.png" alt="Logotipo de La Tercera Vuelta, plataforma LTV Maestro" class="ltv-media"></div>
+    <div class="project-body"><span class="project-type">Plataforma web operativa</span>
+    <h3>LTV Maestro · La Tercera Vuelta</h3><p>Desarrollamos una plataforma para la operación diaria que reúne ventas, órdenes activas, inventario por peso, recetas y costeo, cortes de caja y reportes para una toma de decisiones más clara.</p>
+    <div class="chips"><span class="chip">React + Vite</span><span class="chip">Tailwind CSS</span><span class="chip">Base44</span><span class="chip">Vercel</span><span class="chip">Operación y reportes</span></div>
+    <div class="project-links"><a class="project-video" href="/proyecto/ltv-maestro">Explorar proyecto →</a>
+    <button class="save-project" type="button" data-save="ltv-maestro" aria-pressed="false" aria-label="Guardar LTV Maestro · La Tercera Vuelta" hidden>Guardar</button></div></div></article>
 <article class="project" data-category="tools" data-project-id="evidencia-visual">
     <div class="project-media"><img loading="lazy" decoding="async" src="/assets/embedded-7.webp" alt="Editor de fotos con evidencia anotada"></div>
     <div class="project-body"><span class="project-type">UX de evidencia</span>
@@ -267,21 +291,7 @@
     <h3>TalkTrend, CinematicApp y asistentes</h3><p>Integramos generación de video, publicación, agentes, voz, análisis de pantalla y flujos inteligentes para tareas creativas y operativas.</p>
     <div class="chips"><span class="chip">IA</span><span class="chip">Video</span><span class="chip">Agentes</span></div>
     <div class="project-links"><a class="project-video" href="/proyecto/asistentes-ia">Explorar proyecto →</a>
-    <button class="save-project" type="button" data-save="asistentes-ia" aria-pressed="false" aria-label="Guardar TalkTrend, CinematicApp y asistentes" hidden>Guardar</button></div></div></article>
-<article class="project" data-category="web" data-project-id="ltv-maestro">
-    <div class="project-media"><img loading="lazy" decoding="async" src="https://ltv-maestro.vercel.app/logo.png" alt="Logotipo de La Tercera Vuelta, plataforma LTV Maestro" class="ltv-media"></div>
-    <div class="project-body"><span class="project-type">Plataforma web operativa</span>
-    <h3>LTV Maestro · La Tercera Vuelta</h3><p>Desarrollamos una plataforma para la operación diaria que reúne ventas, órdenes activas, inventario por peso, recetas y costeo, cortes de caja y reportes para una toma de decisiones más clara.</p>
-    <div class="chips"><span class="chip">React + Vite</span><span class="chip">Tailwind CSS</span><span class="chip">Base44</span><span class="chip">Vercel</span><span class="chip">Operación y reportes</span></div>
-    <div class="project-links"><a class="project-video" href="/proyecto/ltv-maestro">Explorar proyecto →</a>
-    <button class="save-project" type="button" data-save="ltv-maestro" aria-pressed="false" aria-label="Guardar LTV Maestro · La Tercera Vuelta" hidden>Guardar</button></div></div></article>
-<article class="project" data-category="tools" data-project-id="mcp-dual-llm-guard">
-    <div class="project-media"><img loading="lazy" decoding="async" src="/assets/mcp-dual-llm-guard.svg" alt="Diagrama de MCP Dual LLM Guard: un monitor de referencia separa la entrada no confiable de un LLM privilegiado y un LLM en cuarentena"></div>
-    <div class="project-body"><span class="project-type">Seguridad de IA · Agentes LLM</span>
-    <h3>MCP Dual LLM Guard</h3><p>Desarrollamos un middleware en Python que neutraliza por diseño la inyección indirecta de prompts y el envenenamiento de herramientas MCP, respaldado por 225 pruebas.</p>
-    <div class="chips"><span class="chip">Python</span><span class="chip">Verificado por M8ven · 75/100</span><span class="chip">MCP</span><span class="chip">OWASP LLM01 · LLM06 · LLM03</span></div>
-    <div class="project-links"><a class="project-video" href="/proyecto/mcp-dual-llm-guard">Explorar proyecto →</a>
-    <button class="save-project" type="button" data-save="mcp-dual-llm-guard" aria-pressed="false" aria-label="Guardar MCP Dual LLM Guard" hidden>Guardar</button></div></div></article></div>
+    <button class="save-project" type="button" data-save="asistentes-ia" aria-pressed="false" aria-label="Guardar TalkTrend, CinematicApp y asistentes" hidden>Guardar</button></div></div></article></div>
 <!-- PROJECTS_END -->
         <div class="chips" aria-label="Más líneas de experiencia">
           <span class="chip">Egunatek</span>
@@ -309,7 +319,7 @@
           <div class="play-copy">
             <h3>Desarrollo independiente con enfoque práctico</h3>
             <p>Unimos experiencia técnica, criterio de producto y atención al detalle para convertir procesos manuales en herramientas móviles simples de usar.</p>
-          <div class="quote">Desarrollamos productos móviles y web para trabajo de campo, operación, fotos, firmas, PDF/Excel e IA aplicada en México.</div>
+          <div class="quote">Desarrollamos productos móviles y web para trabajo de campo, operación, fotos, firmas, PDF/Excel, IA aplicada y seguridad de agentes LLM en México.</div>
             <div class="actions">
               <a class="btn dark" href="https://github.com/Erik755" target="_blank" rel="noreferrer">Ver GitHub</a>
               <a class="btn light" href="/privacidad">Privacidad</a>
@@ -377,6 +387,8 @@
             <span>Fotos y firmas</span>
           <span>IA aplicada</span>
           <span>Publicación Play Store</span>
+          <span>Python y MCP</span>
+          <span>Seguridad de agentes de IA</span>
         </div>
       </div>
       </div>

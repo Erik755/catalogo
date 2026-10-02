@@ -1,5 +1,71 @@
 [
   {
+    "id": "mcp-dual-llm-guard",
+    "category": "tools",
+    "title": "MCP Dual LLM Guard",
+    "type": "Seguridad de IA · Agentes LLM",
+    "description": "Desarrollamos un middleware en Python que neutraliza por diseño la inyección indirecta de prompts y el envenenamiento de herramientas MCP: un LLM privilegiado planifica solo con punteros, un LLM en cuarentena lee los datos sin acceso a herramientas y un monitor de referencia decide qué datos llegan a cada herramienta. Respaldado por 224 pruebas.",
+    "image": "/assets/mcp-dual-llm-guard.svg",
+    "alt": "Diagrama de MCP Dual LLM Guard: un monitor de referencia separa la entrada no confiable de un LLM privilegiado y un LLM en cuarentena",
+    "tags": [
+      "Python",
+      "MCP",
+      "Patrón Dual LLM",
+      "Verificado por M8ven · 75/100",
+      "OWASP LLM01 · LLM06 · LLM03"
+    ],
+    "links": [
+      {
+        "url": "https://github.com/Erik755/mcp-dual-llm-guard",
+        "label": "Ver en GitHub →"
+      },
+      {
+        "url": "https://m8ven.ai/mcp/erik755-mcp-dual-llm-guard-m0uqf4",
+        "label": "Ver ficha en M8ven →"
+      }
+    ],
+    "certification": {
+      "issuer": "M8ven",
+      "score": 75,
+      "id": "a5dad922de9566da",
+      "repository": "Erik755/mcp-dual-llm-guard",
+      "repositoryUrl": "https://github.com/Erik755/mcp-dual-llm-guard",
+      "verifiedAt": "2026-10-01T20:12-06:00",
+      "verified": "1 oct 2026, 8:12 p. m. (CST)",
+      "codeHash": "f39121b5de101ecd20cf6b2607f96678106031052aaac716a3a54dea94b0c504",
+      "signature": "e0477484f17a44ba1bc7504df4d3342955b0cee6342b1bbd22e8b34418ebc830",
+      "findings": [
+        "Análisis estático: sin exfiltración de credenciales, sin acceso a archivos sensibles, sin ofuscación",
+        "Código abierto con licencia y README"
+      ]
+    },
+    "featured": true
+  },
+  {
+    "id": "lentes",
+    "category": "android",
+    "title": "Lentes: cámara por carpetas",
+    "type": "Producto Android · Prueba cerrada en Google Play",
+    "description": "Convertimos la cámara nativa en un flujo organizado por contexto: cada lente separa fotos y videos en su propia carpeta y puede respaldarlos en un álbum equivalente de Google Fotos.",
+    "image": "/assets/lentes-feature.png",
+    "alt": "Lentes, aplicación Android para organizar fotos y videos por carpetas",
+    "tags": [
+      "Kotlin",
+      "Google Photos Library API",
+      "OAuth · Google Identity Services",
+      "WorkManager",
+      "Google Play Billing"
+    ],
+    "links": [
+      {
+        "url": "https://youtube.com/shorts/fLg5ZMEZ3Ec?si=cgFs3IToKWBHwk-K",
+        "label": "Ver demostración →"
+      }
+    ],
+    "featured": true,
+    "privacy": "lentes"
+  },
+  {
     "id": "reporte-servicio-pro",
     "category": "android",
     "title": "Reporte Servicio Pro",
@@ -45,29 +111,6 @@
     "privacy": "control-gastos-pro"
   },
   {
-    "id": "lentes",
-    "category": "android",
-    "title": "Lentes: cámara por carpetas",
-    "type": "Producto Android · Google Play",
-    "description": "Convertimos la cámara nativa en un flujo organizado por contexto: cada lente separa fotos y videos en su propia carpeta y puede respaldarlos en un álbum equivalente de Google Fotos.",
-    "image": "/assets/lentes-feature.png",
-    "alt": "Lentes, aplicación Android para organizar fotos y videos por carpetas",
-    "tags": [
-      "Kotlin",
-      "Android",
-      "Google Fotos",
-      "Play Billing"
-    ],
-    "links": [
-      {
-        "url": "https://youtube.com/shorts/fLg5ZMEZ3Ec?si=cgFs3IToKWBHwk-K",
-        "label": "Ver demostración →"
-      }
-    ],
-    "featured": false,
-    "privacy": "lentes"
-  },
-  {
     "id": "museum-of-you",
     "category": "web",
     "title": "The Museum of You",
@@ -93,6 +136,29 @@
     ],
     "featured": false,
     "privacy": "museum"
+  },
+  {
+    "id": "ltv-maestro",
+    "category": "web",
+    "title": "LTV Maestro · La Tercera Vuelta",
+    "type": "Plataforma web operativa",
+    "description": "Desarrollamos una plataforma para la operación diaria que reúne ventas, órdenes activas, inventario por peso, recetas y costeo, cortes de caja y reportes para una toma de decisiones más clara.",
+    "image": "https://ltv-maestro.vercel.app/logo.png",
+    "alt": "Logotipo de La Tercera Vuelta, plataforma LTV Maestro",
+    "tags": [
+      "React + Vite",
+      "Tailwind CSS",
+      "Base44",
+      "Vercel",
+      "Operación y reportes"
+    ],
+    "links": [
+      {
+        "url": "https://ltv-maestro.vercel.app/",
+        "label": "Ver plataforma →"
+      }
+    ],
+    "featured": false
   },
   {
     "id": "evidencia-visual",
@@ -140,70 +206,6 @@
       "Agentes"
     ],
     "links": [],
-    "featured": false
-  },
-  {
-    "id": "ltv-maestro",
-    "category": "web",
-    "title": "LTV Maestro · La Tercera Vuelta",
-    "type": "Plataforma web operativa",
-    "description": "Desarrollamos una plataforma para la operación diaria que reúne ventas, órdenes activas, inventario por peso, recetas y costeo, cortes de caja y reportes para una toma de decisiones más clara.",
-    "image": "https://ltv-maestro.vercel.app/logo.png",
-    "alt": "Logotipo de La Tercera Vuelta, plataforma LTV Maestro",
-    "tags": [
-      "React + Vite",
-      "Tailwind CSS",
-      "Base44",
-      "Vercel",
-      "Operación y reportes"
-    ],
-    "links": [
-      {
-        "url": "https://ltv-maestro.vercel.app/",
-        "label": "Ver plataforma →"
-      }
-    ],
-    "featured": false
-  },
-  {
-    "id": "mcp-dual-llm-guard",
-    "category": "tools",
-    "title": "MCP Dual LLM Guard",
-    "type": "Seguridad de IA · Agentes LLM",
-    "description": "Desarrollamos un middleware en Python que neutraliza por diseño la inyección indirecta de prompts y el envenenamiento de herramientas MCP, respaldado por 225 pruebas.",
-    "image": "/assets/mcp-dual-llm-guard.svg",
-    "alt": "Diagrama de MCP Dual LLM Guard: un monitor de referencia separa la entrada no confiable de un LLM privilegiado y un LLM en cuarentena",
-    "tags": [
-      "Python",
-      "Verificado por M8ven · 75/100",
-      "MCP",
-      "OWASP LLM01 · LLM06 · LLM03"
-    ],
-    "links": [
-      {
-        "url": "https://github.com/Erik755/mcp-dual-llm-guard",
-        "label": "Ver en GitHub →"
-      },
-      {
-        "url": "https://m8ven.ai/mcp/erik755-mcp-dual-llm-guard-m0uqf4",
-        "label": "Ver ficha en M8ven →"
-      }
-    ],
-    "certification": {
-      "issuer": "M8ven",
-      "score": 75,
-      "id": "a5dad922de9566da",
-      "repository": "Erik755/mcp-dual-llm-guard",
-      "repositoryUrl": "https://github.com/Erik755/mcp-dual-llm-guard",
-      "verifiedAt": "2026-10-01T20:12-06:00",
-      "verified": "1 oct 2026, 8:12 p. m. (CST)",
-      "codeHash": "f39121b5de101ecd20cf6b2607f96678106031052aaac716a3a54dea94b0c504",
-      "signature": "e0477484f17a44ba1bc7504df4d3342955b0cee6342b1bbd22e8b34418ebc830",
-      "findings": [
-        "Análisis estático: sin exfiltración de credenciales, sin acceso a archivos sensibles, sin ofuscación",
-        "Código abierto con licencia y README"
-      ]
-    },
     "featured": false
   }
 ]

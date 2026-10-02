@@ -6,13 +6,32 @@ const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
 const grid = html.match(/<!-- PROJECTS_START -->([\s\S]*?)<!-- PROJECTS_END -->/)[1];
 const cards = grid.split('<article ').slice(1);
 
-test('todas las tarjetas del catálogo comparten el mismo diseño (sin tarjeta destacada)', () => {
+test('todas las tarjetas del catálogo comparten la misma estructura; MCP y Lentes van primero como destacados', () => {
   assert.equal(cards.length, 9);
   for (const card of cards) {
-    assert.match(card, /^class="project" /, 'clase distinta en: ' + card.slice(0, 120));
+    assert.match(card, /^class="project( project-featured)?" /, 'clase distinta en: ' + card.slice(0, 120));
     for (const part of ['class="project-media"', 'class="project-body"', 'class="project-type"', '<h3>', 'class="chips"', 'class="project-links"', 'class="project-video" href="/proyecto/']) assert.ok(card.includes(part), part);
   }
-  assert.ok(!grid.includes('project-featured'));
+  const featured = cards.filter(card => card.startsWith('class="project project-featured"'));
+  assert.equal(featured.length, 2);
+  assert.ok(cards[0].includes('data-project-id="mcp-dual-llm-guard"') && cards[0].includes('project-featured'));
+  assert.ok(cards[1].includes('data-project-id="lentes"') && cards[1].includes('project-featured'));
+  for (const card of featured) assert.ok(card.includes('<span class="featured-badge">') && card.includes('<span>Destacado</span>'));
+  for (const card of cards.slice(2)) assert.ok(!card.includes('featured'));
+});
+
+test('destacados en el héroe y MCP/Lentes en las listas de herramientas y especialidades, en ES y EN', () => {
+  const translations = JSON.parse(readFileSync(new URL('../data/translations.json', import.meta.url), 'utf8'));
+  const hero = html.slice(html.indexOf('<header id="inicio"'), html.indexOf('</header>'));
+  assert.ok(hero.includes('class="hero-featured"') && hero.includes('href="/proyecto/mcp-dual-llm-guard"') && hero.includes('href="/proyecto/lentes"'));
+  const tools = html.slice(html.indexOf('class="tool-grid"'), html.indexOf('</section>', html.indexOf('class="tool-grid"')));
+  assert.equal(tools.split('class="tool-card"').length - 1, 6);
+  for (const fact of ['Python, MCP (Model Context Protocol)', 'Kotlin', 'WorkManager', 'Google Photos Library API', 'Google Identity Services', 'Google Play Billing']) assert.ok(tools.includes(fact), fact);
+  for (const badge of ['Python y MCP', 'Seguridad de agentes de IA']) assert.ok(html.includes(`<span>${badge}</span>`), badge);
+  const lentes = JSON.parse(readFileSync(new URL('../data/projects.json', import.meta.url), 'utf8')).find(item => item.id === 'lentes');
+  assert.match(lentes.type, /Prueba cerrada/);
+  for (const text of ['Productos destacados', 'Destacados', 'Destacado', 'Seguridad para agentes de IA', 'Cámara por carpetas para Android', 'IA y seguridad', 'Agentes LLM protegidos', 'Python y MCP', 'Seguridad de agentes de IA', 'Patrón Dual LLM', lentes.type]) assert.ok(translations[text], text);
+  for (const match of tools.matchAll(/<p>([^<]+)<\/p>/g)) assert.ok(translations[match[1]], match[1].slice(0, 60));
 });
 
 test('Plataforma web operativa conserva su texto y su enlace a /proyecto/ltv-maestro', () => {
